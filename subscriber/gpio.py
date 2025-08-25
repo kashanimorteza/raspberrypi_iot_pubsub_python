@@ -26,7 +26,8 @@ async def run():
         if name is not None and value is not None:
             item = get_gpio_params(cfg, name)
             mode = item.get("mode")
-            print(mode)
+            if mode == "out":
+                print(mode)
     await nc.subscribe("gpio", cb=gpio_handler)
 
     try:

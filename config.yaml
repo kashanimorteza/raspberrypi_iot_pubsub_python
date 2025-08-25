@@ -13,7 +13,7 @@ chip:
       pin: 11
       port: 17
       value: 0
-      mode: OUT
+      mode: out
       description: P-Motor
       enable: true
     #----- gpio-2
@@ -21,7 +21,7 @@ chip:
       pin: 12
       port: 18
       value: 0
-      mode: OUT
+      mode: out
       description: P-Shir
       enable: true
     #----- gpio-3
@@ -29,7 +29,7 @@ chip:
       pin: 13
       port: 27
       value: 0
-      mode: OUT
+      mode: out
       description: P-Light
       enable: true
     #----- gpio-4
@@ -37,7 +37,7 @@ chip:
       pin: 15
       port: 22
       value: 0
-      mode: OUT
+      mode: out
       description: J-Motor
       enable: true
     #----- gpio-5
@@ -45,7 +45,7 @@ chip:
       pin: 16
       port: 23
       value: 0
-      mode: OUT
+      mode: out
       description: J-Shir
       enable: true
     #----- gpio-6
@@ -53,7 +53,7 @@ chip:
       pin: 18
       port: 24
       value: 0
-      mode: OUT
+      mode: out
       description: J-Light
       enable: true
     #----- gpio-7
@@ -61,7 +61,7 @@ chip:
       pin: 19
       port: 10
       value: 0
-      mode: IN
+      mode: in
       description: J-Fuse
       enable: true
     #----- gpio-8
@@ -69,7 +69,7 @@ chip:
       pin: 21
       port: 9
       value: 0
-      mode: OUT
+      mode: out
       description: J-Erjet
       enable: true
     #----- gpio-9
@@ -77,7 +77,7 @@ chip:
       pin: 22
       port: 25
       value: 0
-      mode: OUT
+      mode: out
       description: SD-Hiter
       enable: true
     #----- gpio-10
@@ -85,7 +85,7 @@ chip:
       pin: 23
       port: 11
       value: 0
-      mode: OUT
+      mode: out
       description: SD-Light
       enable: true
     #----- gpio-11
@@ -93,7 +93,7 @@ chip:
       pin: 24
       port: 8
       value: 0
-      mode: OUT
+      mode: out
       description: F-Motor
       enable: true
     #----- gpio-12
@@ -101,7 +101,7 @@ chip:
       pin: 26
       port: 7
       value: 0
-      mode: OUT
+      mode: out
       description: C-Motor
       enable: true
     #----- gpio-13
@@ -109,7 +109,7 @@ chip:
       pin: 29
       port: 5
       value: 0
-      mode: OUT
+      mode: out
       description: SS-Shir
       enable: true
     #----- gpio-14
@@ -117,7 +117,7 @@ chip:
       pin: 31
       port: 6
       value: 0
-      mode: OUT
+      mode: out
       description: SS-Hiter
       enable: true
     #----- gpio-15
@@ -125,7 +125,7 @@ chip:
       pin: 32
       port: 12
       value: 0
-      mode: OUT
+      mode: out
       description: SS-Light
       enable: true
     #----- gpio-16
@@ -133,7 +133,7 @@ chip:
       pin: 33
       port: 13
       value: 0
-      mode: IN
+      mode: in
       description: SS-WH
       enable: true
     #----- gpio-17
@@ -141,7 +141,7 @@ chip:
       pin: 35
       port: 19
       value: 0
-      mode: IN
+      mode: in
       description: SS-WL
       enable: true
     #----- gpio-18
@@ -149,7 +149,7 @@ chip:
       pin: 36
       port: 16
       value: 0
-      mode: OUT
+      mode: out
       description: SS-Esans
       enable: true
     #----- gpio-19
@@ -157,7 +157,7 @@ chip:
       pin: 37
       port: 26
       value: 0
-      mode: OUT
+      mode: out
       description: SS-Takhlie
       enable: true
     #----- gpio-20
@@ -165,7 +165,7 @@ chip:
       pin: 38
       port: 20
       value: 0
-      mode: OUT
+      mode: out
       description: C-Light
       enable: true
     #----- gpio-21
@@ -173,7 +173,7 @@ chip:
       pin: 40
       port: 21
       value: 0
-      mode: OUT
+      mode: out
       description: Abnama
       enable: true
 
@@ -184,7 +184,7 @@ chip:
       pin: 7
       port: 4
       value: 0
-      mode: IN
+      mode: in
       description: Data-1
       enable: true
 
@@ -194,14 +194,14 @@ chip:
     reserved-1:
       pin: 27
       value: 0
-      mode: IN
+      mode: in
       description: Reserved
       enable: true
     #----- reserved-2
     reserved-2:
       pin: 28
       value: 0
-      mode: IN
+      mode: in
       description: Reserved
       enable: true
 
