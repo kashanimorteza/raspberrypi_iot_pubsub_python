@@ -60,3 +60,9 @@ pip install -r requirements.txt
 <br><br>
 
 ## Note 
+
+Git
+```bash
+git fetch origin
+git reset --hard origin/main
+```

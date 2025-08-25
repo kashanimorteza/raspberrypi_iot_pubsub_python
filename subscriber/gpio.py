@@ -57,17 +57,14 @@ async def run():
     print(f"{hardware}.gpio.read")
     async def gpio_read_handler(msg):
         #-msg
-        subject = msg.subject
-        reply = msg.reply
-        data = msg.data
-        msg = get_msg_dict(msg)
-        name = msg.get("name")
+        msg_decod = get_msg_dict(msg.data)
+        name = msg_decod.get("name")
         #-item
         item = get_gpio_params(cfg, name)
         port = item.get("port")
         #-action
         value = logic.read(port)
-        await nc.publish(reply, str(value).encode())
+        await nc.publish(msg.reply, str(value).encode())
         #-verbose
         print(f"GPIO : read : {name} : {port} : {value}")
     await nc.subscribe(f"{hardware}.gpio.read", cb=gpio_read_handler)
