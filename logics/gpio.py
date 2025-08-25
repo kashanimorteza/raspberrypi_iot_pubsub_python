@@ -5,20 +5,20 @@
 # logic for gpio
 
 #--------------------------------------------------------------------------------- Import
-#from RPi import GPIO as GPIO
+from RPi import GPIO as GPIO
 from logics.general import get_gpios
 
 #--------------------------------------------------------------------------------- Action
 class logic_gpio:
     #-------------------------- [Init]
-    def __init__(self, verbose: bool = False, log: bool = False):
+    def __init__(self, verbose: bool = False, log: bool = False, gpio:GPIO=None):
         #gpio:GPIO=None
         #--------------Variable
         self.this_class = self.__class__.__name__
         self.modoule = "hardware_gpio"
         self.verbose = verbose
         self.log = log
-        #self.gpio = gpio
+        self.gpio = gpio
 
     #-------------------------- [load]
     def load(self, cfg) -> bool:
@@ -36,13 +36,14 @@ class logic_gpio:
         #--------------Action
         for item in items:
             mode = item.get("mode")
+            port = item.get("port")
             if mode == "in" :
                 print("incomming") 
-                #self.gpio.setup(port.port, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
+                self.gpio.setup(port.port, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 
                 print("outcomming") 
-                #self.gpio.setup(port.port, self.gpio.OUT)
-                #self.out(port.port, port.value)
+                self.gpio.setup(port.port, self.gpio.OUT)
+                self.out(port.port, port.value)
 
         #--------------Output
         return output
@@ -58,7 +59,7 @@ class logic_gpio:
         output = True
 
         #--------------Action
-        #self.gpio.output(port, self.gpio.HIGH if value else self.gpio.LOW)
+        self.gpio.output(port, self.gpio.HIGH if value else self.gpio.LOW)
 
         #--------------Output
         return output

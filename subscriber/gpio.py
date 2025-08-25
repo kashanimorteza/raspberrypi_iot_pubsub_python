@@ -17,11 +17,11 @@ from logics.gpio import logic_gpio
 #-------------------------- run
 async def run():
 
-    # #-----GPIO
-    # import RPi.GPIO as GPIO
-    # gpio = GPIO
-    # gpio.setmode(GPIO.BCM)
-    # gpio.setwarnings(False)
+    #-----GPIO
+    import RPi.GPIO as GPIO
+    gpio = GPIO
+    gpio.setmode(GPIO.BCM)
+    gpio.setwarnings(False)
 
     #-----NATS
     cfg = load_config()
@@ -30,7 +30,7 @@ async def run():
     await nc.connect(url)
 
     #-----Logic
-    logic = logic_gpio()
+    logic = logic_gpio(gpio=gpio)
     logic.load(cfg)
 
     #--------------Variable
