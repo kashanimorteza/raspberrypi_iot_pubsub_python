@@ -1,2 +1,1 @@
-read logcs/general.py method get_gpios
-i need get all items on gpio section
+i need get cfg on logics/gpio.py on __init__ method on input variable

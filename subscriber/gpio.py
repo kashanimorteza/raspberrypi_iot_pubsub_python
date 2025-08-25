@@ -31,7 +31,7 @@ async def run():
 
     #-----Logic
     logic = logic_gpio(gpio=gpio)
-    logic.load(cfg)
+    logic.load(cfg=cfg)
 
     #--------------Variable
     result = False

@@ -6,21 +6,22 @@
 
 #--------------------------------------------------------------------------------- Import
 from RPi import GPIO as GPIO
-from logics.general import get_gpios
+from logics.general import get_gpios, load_config
 
 #--------------------------------------------------------------------------------- Action
 class logic_gpio:
     #-------------------------- [Init]
-    def __init__(self, verbose: bool = False, log: bool = False, gpio:GPIO=None):
+    def __init__(self, verbose: bool = False, log: bool = False, gpio:GPIO=None, cfg=None):
         #--------------Variable
         self.this_class = self.__class__.__name__
         self.modoule = "logic_gpio"
         self.verbose = verbose
         self.log = log
         self.gpio = gpio
+        self.cfg = cfg
 
     #-------------------------- [load]
-    def load(self, cfg) -> bool:
+    def load(self) -> bool:
         #--------------Description
         # IN     : cfg=data of config file
         # OUT    : true/false
@@ -30,7 +31,7 @@ class logic_gpio:
         result = False
 
         #--------------Data
-        items = get_gpios(cfg)
+        items = get_gpios(self.cfg)
 
         #--------------Action
         for item in items:
