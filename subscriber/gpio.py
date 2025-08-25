@@ -16,7 +16,8 @@ from logics.general import load_config, get_nats_url, get_msg_dict
 #--------------------------------------------------------------------------------- Action
 #-------------------------- run
 async def run():
-    url = get_nats_url()
+    cfg = load_config()
+    url = get_nats_url(cfg)
     nc = NATS()
     await nc.connect(url)
 

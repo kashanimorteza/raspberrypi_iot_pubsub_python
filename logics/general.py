@@ -19,8 +19,7 @@ def load_config():
         return yaml.safe_load(f)
 
 #-------------------------- get_nats_url
-def get_nats_url():
-    cfg = load_config()
+def get_nats_url(cfg):
     nats_cfg = cfg.get("nats", {})
     host = nats_cfg.get("host", "127.0.0.1")
     port = nats_cfg.get("port", 4222)
