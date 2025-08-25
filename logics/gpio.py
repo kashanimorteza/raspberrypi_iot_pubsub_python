@@ -12,10 +12,9 @@ from logics.general import get_gpios
 class logic_gpio:
     #-------------------------- [Init]
     def __init__(self, verbose: bool = False, log: bool = False, gpio:GPIO=None):
-        #gpio:GPIO=None
         #--------------Variable
         self.this_class = self.__class__.__name__
-        self.modoule = "hardware_gpio"
+        self.modoule = "logic_gpio"
         self.verbose = verbose
         self.log = log
         self.gpio = gpio
@@ -28,7 +27,7 @@ class logic_gpio:
         # Action : Load GPIO 
         
         #--------------Variable
-        output = False
+        result = False
 
         #--------------Data
         items = get_gpios(cfg)
@@ -37,7 +36,7 @@ class logic_gpio:
         for item in items:
             mode = item.get("mode")
             port = item.get("port")
-            print(f"Load : {mode} : {port}") 
+            print(f"GPIO : load : {mode} : {port}") 
             if mode == "in" :
                 self.gpio.setup(port, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 
@@ -45,7 +44,7 @@ class logic_gpio:
                 self.write(port, 0)
 
         #--------------Output
-        return output
+        return result
 
     #-------------------------- [write]
     def write(self, port, value) -> bool:
@@ -55,13 +54,16 @@ class logic_gpio:
         # Action : on or off gpio port
         
         #--------------Variable
-        output = True
+        result = True
 
         #--------------Action
         self.gpio.output(port, self.gpio.HIGH if value else self.gpio.LOW)
 
+        #--------------Log
+        print(f"GPIO : write : {port} : {value}") 
+
         #--------------Output
-        return output
+        return result
 
     #-------------------------- [read]
     def read(self, port) -> bool:
@@ -71,7 +73,10 @@ class logic_gpio:
         # Action : read gpio port number
 
         #--------------Action
-        output = self.gpio.input(port)
+        result = self.gpio.input(port)
+
+        #--------------Log
+        print(f"GPIO : read : {port} : {result}") 
 
         #--------------Output
-        return output
+        return result
