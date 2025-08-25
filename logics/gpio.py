@@ -37,13 +37,12 @@ class logic_gpio:
         for item in items:
             mode = item.get("mode")
             port = item.get("port")
+            print(f"Load : {mode} : {port}") 
             if mode == "in" :
-                print("incomming") 
-                self.gpio.setup(port.port, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
+                self.gpio.setup(port, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 
-                print("outcomming") 
-                self.gpio.setup(port.port, self.gpio.OUT)
-                self.out(port.port, port.value)
+                self.gpio.setup(port, self.gpio.OUT)
+                self.write(port, 0)
 
         #--------------Output
         return output

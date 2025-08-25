@@ -11,8 +11,10 @@
 ### NATS
 ```bash
 cd /root
-curl -fsSL https://binaries.nats.dev/nats-io/nats-server/v2@v2.11.6 | sh
+curl -fsSL https://binaries.nats.dev/nats-io/nats-server/v2@latest | sh
+curl -fsSL https://binaries.nats.dev/nats-io/natscli/nats@latest | sh
 sudo mv ./nats-server /usr/local/bin/
+sudo mv ./nats /usr/local/bin/
 sudo mv nats-server-v2.10.20-linux-amd64/nats-server.conf /etc/nats-server.conf
 ```
 
