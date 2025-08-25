@@ -14,7 +14,6 @@ from logics.general import load_config, get_nats_url, get_msg_dict, get_gpio_par
 from logics.gpio import logic_gpio
 
 #--------------------------------------------------------------------------------- Action
-#-------------------------- run
 async def run():
 
     #-----Data
@@ -80,5 +79,4 @@ async def run():
     finally:
         await nc.drain()
 
-#-------------------------- main
 asyncio.run(run())
