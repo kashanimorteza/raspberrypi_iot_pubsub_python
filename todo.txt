@@ -1,0 +1,2 @@
+read subscriber_gpio.py
+i need get host and port from config.yaml for await nc.connect("nats://127.0.0.1:4222")
