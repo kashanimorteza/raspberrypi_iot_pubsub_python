@@ -11,7 +11,7 @@ from nats.aio.client import Client as NATS
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path : sys.path.insert(0, project_root)
-from logics.general import load_config, get_nats_url, get_msg_dict
+from logics.general import load_config, get_nats_url, get_msg_dict, get_gpio_params
 
 #--------------------------------------------------------------------------------- Action
 #-------------------------- run
@@ -22,16 +22,14 @@ async def run():
     await nc.connect(url)
 
     async def gpio_handler(msg):
+        print(f"msg : {msg}")
         d = get_msg_dict(msg)
+        print(f"d : {d}")
         name = d.get("name")
         value = d.get("value")
         if name is not None and value is not None:
-            print(f"name:{name}, value:{value}")
-        else:
-            try:
-                print(msg.data.decode())
-            except Exception:
-                print(str(msg))
+            #item = get_gpio_params(cfg, name)
+            print(name)
     await nc.subscribe("gpio", cb=gpio_handler)
 
     try:

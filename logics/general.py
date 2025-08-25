@@ -25,6 +25,15 @@ def get_nats_url(cfg):
     port = nats_cfg.get("port", 4222)
     return f"nats://{host}:{port}"
 
+#-------------------------- get_gpio_params
+def get_gpio_params(cfg, gpio_name):
+    chip = cfg.get("chip", {})
+    gpios = chip.get("gpio", {})
+    if not isinstance(gpios, dict):
+        return {}
+    entry = gpios.get(str(gpio_name))
+    return entry if isinstance(entry, dict) else {}
+
 #-------------------------- get_msg_dict
 def get_msg_dict(msg):
     # Extract bytes from msg
@@ -76,3 +85,4 @@ def get_msg_dict(msg):
         return out
 
     return {}
+
