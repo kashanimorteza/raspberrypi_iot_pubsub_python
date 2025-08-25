@@ -27,8 +27,8 @@ async def run():
     await nc.connect(url)
 
     #-----Handler
-    response = await nc.request(f"{hardware}.gpio.read", b"{'name':'gpio-7'}", timeout=5.0)
-    print(f"response: {response.data.decode()}")
+    response = await nc.request(f"{hardware}.gpio.read", b"{'name':'gpio-7'}", timeout=1.0)
+    print(response.data.decode())
     await nc.close()
 
 #-------------------------- main
