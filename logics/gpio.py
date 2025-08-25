@@ -54,14 +54,11 @@ class logic_gpio:
         # OUT    : true/false
         # Action : on or off gpio port
         
-        #--------------Variable
-        result = True
-
         #--------------Action
         self.gpio.output(port, self.gpio.HIGH if value else self.gpio.LOW)
 
-        #--------------Log
-        print(f"GPIO : write : {port} : {value}") 
+        #--------------Result
+        result = f"GPIO : write : {port} : {value}"
 
         #--------------Output
         return result
@@ -75,9 +72,6 @@ class logic_gpio:
 
         #--------------Action
         result = self.gpio.input(port)
-
-        #--------------Log
-        print(f"GPIO : read : {port} : {result}") 
-
+        
         #--------------Output
         return result

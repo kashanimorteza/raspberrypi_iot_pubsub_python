@@ -22,6 +22,12 @@ def get_nats_url(cfg):
     port = nats_cfg.get("port", 4222)
     return f"nats://{host}:{port}"
 
+#-------------------------- get_hardware
+def get_hardware(cfg):
+    nats_cfg = cfg.get("nats", {})
+    hardware = nats_cfg.get("hardware")
+    return hardware
+
 #-------------------------- get_gpios
 def get_gpios(cfg):
     chip = cfg.get("chip", {})
