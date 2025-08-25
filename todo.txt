@@ -1,2 +1,2 @@
-msg subscriber/gpio.py on gpio_handler is like : {name:11, value:1}
-i need a method on logics/general.py that get msg and return dictionary
+i run this command : nats pub gpio "{name:'gpio-1', value:1}"
+i need get_msg_dict method on logics/general.py return dictionary of msg

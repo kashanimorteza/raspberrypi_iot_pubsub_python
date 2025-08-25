@@ -8,11 +8,9 @@
 import os, re, json
 import yaml
 
-
 #--------------------------------------------------------------------------------- Action
 #-------------------------- load_config
 def load_config():
-    """Load config.yaml from repo root by default, or CONFIG_PATH if set."""
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     config_path = os.environ.get("CONFIG_PATH", os.path.join(root_dir, "config.yaml"))
     with open(config_path, "r", encoding="utf-8") as f:
@@ -67,6 +65,17 @@ def get_msg_dict(msg):
             return obj
     except Exception:
         pass
+
+    # Normalize single-quoted JSON-like to valid JSON and retry
+    if text.startswith("{") and text.endswith("}"):
+        try:
+            # Replace single-quoted keys/values with double quotes conservatively
+            normalized = re.sub(r"'([^']*)'", r'"\\1"', text)
+            obj = json.loads(normalized)
+            if isinstance(obj, dict):
+                return obj
+        except Exception:
+            pass
 
     # Fallback: parse key:value pairs (name:gpio-1 value:1)
     pairs = re.findall(r"([A-Za-z0-9_-]+)\s*[:=]\s*([A-Za-z0-9._-]+)", text)
