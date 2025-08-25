@@ -1,2 +1,7 @@
-read subscriber_gpio.py
-i need get host and port from config.yaml for await nc.connect("nats://127.0.0.1:4222")
+read logics/general.py 
+i need a method using load_config and return url:
+    cfg = load_config()
+    nats_cfg = cfg.get("nats", {})
+    host = nats_cfg.get("host", "127.0.0.1")
+    port = nats_cfg.get("port", 4222)
+    url = f"nats://{host}:{port}"
