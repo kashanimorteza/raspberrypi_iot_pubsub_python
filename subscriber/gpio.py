@@ -16,60 +16,56 @@ from logics.gpio import logic_gpio
 #--------------------------------------------------------------------------------- Action
 async def run():
 
-    #-----Data
+    #--------------------------Variable
+    module = "gpio"
+    result = False
+    
+    #--------------------------Data
     cfg = load_config()
     hardware = get_hardware(cfg)
 
-    #-----GPIO
+    #--------------------------GPIO
     import RPi.GPIO as GPIO
     gpio = GPIO
     gpio.setmode(GPIO.BCM)
     gpio.setwarnings(False)
 
-    #-----NATS
+    #--------------------------NATS
     url = get_nats_url(cfg)
     nc = NATS()
     await nc.connect(url)
 
-    #-----Logic
+    #--------------------------Logic
     logic = logic_gpio(gpio=gpio, cfg=cfg)
     logic.load()
-
-    #-----Variable
-    result = False
     
-    #-----Handler
-    print(f"{hardware}.gpio.write")
+    #--------------------------Handler
+    #------------Write
+    print(f"{hardware}.{module}.write")
     async def gpio_write_handler(msg):
-        #-msg
-        msg = get_msg_dict(msg)
-        name = msg.get("name")
-        value = msg.get("value")
-        #-item
-        item = get_gpio_params(cfg, name)
-        port = item.get("port")
+        #-data
+        name = msg.subject.split('.')[-1]
+        value = get_msg_dict(msg.data).get("value")
+        port = get_gpio_params(cfg, name).get("port")
         #-action
         result = logic.write(port, value)
         #-verbose
-        print(result)
-    await nc.subscribe(f"{hardware}.gpio.write", cb=gpio_write_handler)
-
-    print(f"{hardware}.gpio.read")
+        print(f"hardware:{hardware} | module:{module} | method:write | name:{name} | port:{port} | value:{value} | result:{result}")
+    await nc.subscribe(f"{hardware}.{module}.write.*", cb=gpio_write_handler)
+    #------------Read
+    print(f"{hardware}.{module}.read")
     async def gpio_read_handler(msg):
-        #-msg
-        msg_decod = get_msg_dict(msg.data)
-        name = msg_decod.get("name")
-        #-item
-        item = get_gpio_params(cfg, name)
-        port = item.get("port")
+        #-data
+        name = msg.subject.split('.')[-1]
+        port = get_gpio_params(cfg, name).get("port")
         #-action
         value = logic.read(port)
         await nc.publish(msg.reply, str(value).encode())
         #-verbose
-        print(f"GPIO : read : {name} : {port} : {value}")
-    await nc.subscribe(f"{hardware}.gpio.read", cb=gpio_read_handler)
+        print(f"hardware:{hardware} | module:{module} | method:read | name:{name} | port:{port} | value:{value}")
+    await nc.subscribe(f"{hardware}.{module}.read.*", cb=gpio_read_handler)
 
-    #-----Run
+    #--------------------------Run
     try:
         while True:
             await asyncio.sleep(1)
