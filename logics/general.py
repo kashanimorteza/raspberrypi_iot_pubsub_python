@@ -5,8 +5,7 @@
 # general function
 
 #--------------------------------------------------------------------------------- Import
-import os, re, json
-import yaml
+import os, re, json, yaml
 
 #--------------------------------------------------------------------------------- Action
 #-------------------------- load_config
@@ -94,4 +93,3 @@ def get_msg_dict(msg):
         return out
 
     return {}
-
