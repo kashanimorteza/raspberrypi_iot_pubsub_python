@@ -1,9 +1,3 @@
 nats-py
 PyYAML
-
-# requests
-# fastapi[all]
-# pydantic
-# uvicorn
-# sqlalchemy
-# RPi.GPIO
+RPi.GPIO

@@ -1,2 +1,2 @@
-i run this command : nats pub gpio "{name:'gpio-1', value:1}"
-i need get_msg_dict method on logics/general.py return dictionary of msg
+read logcs/general.py method get_gpios
+i need get all items on gpio section
