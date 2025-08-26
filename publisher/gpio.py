@@ -25,12 +25,12 @@ gpio.setwarnings(False)
 
 #--------------------------Pin
 logic = logic_gpio(cfg=cfg)
-pins = logic.get_port_mod(mode="in")
+ports = logic.get_port_mod(mode="in")
 
 #-------------------------- [mode]
-for pin in pins : 
-    print(f"Interrupt GPIO Pin : {pin}")
-    gpio.setup(pin, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+for port in ports : 
+    print(f"Interrupt GPIO port : {port}")
+    gpio.setup(port, gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
 # #-------------------------- [pin_callback]
 # def pin_callback(channel):

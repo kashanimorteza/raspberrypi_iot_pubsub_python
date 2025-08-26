@@ -49,7 +49,8 @@ class logic_gpio:
 
         #--------------Action
         for item in items:
-            if item.get("mode") == mode : result.append(item.get("pin"))
+            if item.get("mode") == mode : 
+                result.append(item.get("port"))
 
         #--------------Output
         return result
