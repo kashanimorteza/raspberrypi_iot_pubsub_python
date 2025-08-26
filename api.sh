@@ -43,6 +43,7 @@ service_create_all()
     echo -e "${YELLOW}service_create_all\n$LINE3${ENDCOLOR}"
 
     service_create_gpio_subscriber
+    service_create_nats
 }
 
 #-----------------------------service_status
@@ -51,7 +52,7 @@ service_status_all()
     #----------Header
     echo -e "${YELLOW}service_status\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         if systemctl is-active --quiet "$service"; then
@@ -68,7 +69,7 @@ service_remove_all()
     #----------Header
     echo -e "${YELLOW}service_remove_all\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         echo -e "${BLUE}$service${ENDCOLOR}"
@@ -84,7 +85,7 @@ service_stop_all()
     #----------Header
     echo -e "${YELLOW}service_stop_all\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         echo -e "${BLUE}$service${ENDCOLOR}"
@@ -98,12 +99,42 @@ service_restart_all()
     #----------Header
     echo -e "${YELLOW}service_stop_all\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         echo -e "${BLUE}$service${ENDCOLOR}"
         systemctl restart $service
     done
+}
+
+#-----------------------------service_create_nats
+service_create_nats()
+{
+    echo -e "${YELLOW}service_create_nats\n$LINE3${ENDCOLOR}"
+
+    #----------Variable
+    service_name=nats
+
+    #----------webapi
+    echo -e "${BLUE}$name"_"${service_name}${ENDCOLOR}"
+    echo """[Unit]
+    Description=$name"_"${service_name}
+
+    [Service]
+    User=root
+    WorkingDirectory=$path/
+    ExecStart=nats-server -c $path/nats-server.conf
+    SuccessExitStatus=143
+    TimeoutStopSec=10
+    Restart=on-failure
+    RestartSec=65
+
+    [Install]
+    WantedBy=multi-user.target""" > /etc/systemd/system/${name}"_"${service_name}.service
+
+    systemctl daemon-reload
+    systemctl enable $name"_"${service_name}
+    systemctl restart $name"_"${service_name}
 }
 
 #-----------------------------service_create_gpio_subscriber
