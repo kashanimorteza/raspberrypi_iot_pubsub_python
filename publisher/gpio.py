@@ -5,44 +5,56 @@
 # publisher gpio
 
 #--------------------------------------------------------------------------------- Import
-import os, sys, time
+import os, sys, time, asyncio
 import RPi.GPIO as GPIO
+from nats.aio.client import Client as NATS
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path : sys.path.insert(0, project_root)
-from logics.general import load_config, get_hardware
+from logics.general import load_config, get_hardware, get_nats_url
 from logics.gpio import logic_gpio
 
 #--------------------------------------------------------------------------------- Action
-#--------------------------GPIO
-gpio = GPIO
-gpio.setmode(GPIO.BOARD)
-gpio.setwarnings(False)
+async def run():
+    #-------------------------- Variable
+    module = "gpio"
 
-#--------------------------Data
-cfg = load_config()
-hardware = get_hardware(cfg)
+    #-------------------------- Data
+    cfg = load_config()
+    hardware = get_hardware(cfg)
 
-#--------------------------Port
-logic = logic_gpio(cfg=cfg)
-ports = logic.get_port_mod(mode="in")
+    #-------------------------- GPIO
+    gpio = GPIO
+    gpio.setmode(GPIO.BOARD)
+    gpio.setwarnings(False)
 
-#-------------------------- [mode]
-for port in ports : 
-    print(f"{hardware} | Interrupt | GPIO | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
-    gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
+    #-------------------------- NATS
+    url = get_nats_url(cfg)
+    nc = NATS()
+    await nc.connect(url)
 
-#-------------------------- [port_callback]
-def port_callback(channel):
-    value=gpio.input(channel)
-    print(f"{hardware} | Interrupt | GPIO | CallBack | channel:{channel} | value:{value}")
+    #-------------------------- Logic
+    logic = logic_gpio(cfg=cfg)
+    ports = logic.get_port_mod(mode="in")
 
-#-------------------------- [Event]
-for port in ports :
-    gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
+    #-------------------------- Listen
+    for port in ports : 
+        print(f"{hardware} | Interrupt | {module} | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
+        gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
-#-------------------------- [interrupt]
-try:
-    while True : time.sleep(1)
-except KeyboardInterrupt:
-    print("Exiting...")
-    gpio.cleanup()
+    #-------------------------- CallBack
+    def port_callback(channel):
+        value=gpio.input(channel)
+        print(f"{hardware} | Interrupt | {module} | CallBack | pin:{channel} | value:{value}")
+
+    #-------------------------- Handler
+    for port in ports :
+        gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
+
+    #--------------------------Run
+    try:
+        while True : time.sleep(1)
+    except KeyboardInterrupt:
+        print("Exiting...")
+        gpio.cleanup()
+
+asyncio.run(run())
