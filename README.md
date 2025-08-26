@@ -76,9 +76,12 @@ apt install python3-pip -y
 apt install python3-venv -y
 ```
 ```bash
-pip install nats-py --break-system-packages
 pip install PyYAML --break-system-packages
-pip install RPi.GPIO --break-system-packages
+```
+```bash
+pip uninstall nats-py --break-system-packages
+pip uninstall PyYAML --break-system-packages
+pip uninstall RPi.GPIO --break-system-packages
 ```
 
 
