@@ -16,7 +16,6 @@ Install OS On MMC Memory With custom configuration
 user : rasp 123456
 Wifi : Mori-Android Morteza1001110
 ```
-
 <!-------------------------- Configure -->
 Configure
 ```bash
@@ -30,7 +29,13 @@ systemctl restart ssh
 systemctl restart sshd
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCvYjhRa8pdECIlwQQM8BdxY9zd7+fmA2kLBgppAf8phOR/GZ8AfpzxCduk2iKFktjVQteIKuczXefN4DPeM76M1HG8eZ9BoDiQwIzT/nNuLu19FsY8PexJznhXT3uOwORpoVNrEy6nKsESvUQYlebtiS9ZkmTO2gSjADC3wwSWbw== root@laptop" > /root/.ssh/authorized_keys
 ```
-
+```bash
+ssh root@10.209.244.237
+```
+```bash
+apt update
+apt upgrade
+```
 <!-------------------------- Git -->
 Git
 ```bash
@@ -52,7 +57,6 @@ sudo chmod 644 /root/.ssh/github-morteza.pub
 sudo chmod 600 /root/.ssh/github-morteza.key
 sudo chmod 600 /root/.ssh/config
 ```
-
 <!-------------------------- NATS -->
 NATS
 ```bash
@@ -62,7 +66,6 @@ sudo mv ./nats-server /usr/local/bin/
 sudo mv ./nats /usr/local/bin/
 sudo mv nats-server-v2.10.20-linux-amd64/nats-server.conf /etc/nats-server.conf
 ```
-
 <!-------------------------- Python -->
 Python 
 ```bash
