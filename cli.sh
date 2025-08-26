@@ -74,24 +74,35 @@ menu_service()
         echo -e  ${YELLOW}"2)  ${GREEN}Status"     ${ENDCOLOR}
         echo -e  ${YELLOW}"3)  ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${YELLOW}"4)  ${GREEN}Restart"    ${ENDCOLOR}
-        echo -e  ${BLUE}"${LINE1}GPIO-subscriber"  ${ENDCOLOR}
+        echo -e  ${BLUE}"${LINE1}NATS"  ${ENDCOLOR}
         echo -e  ${YELLOW}"5)  ${GREEN}Create"     ${ENDCOLOR}
         echo -e  ${YELLOW}"6)  ${GREEN}Restart"    ${ENDCOLOR}
         echo -e  ${YELLOW}"7)  ${GREEN}Status"     ${ENDCOLOR}
         echo -e  ${YELLOW}"8)  ${GREEN}Monitor"    ${ENDCOLOR}
         echo -e  ${YELLOW}"9)  ${GREEN}Stop"       ${ENDCOLOR}
+        echo -e  ${BLUE}"${LINE1}GPIO-subscriber"  ${ENDCOLOR}
+        echo -e  ${YELLOW}"10) ${GREEN}Create"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"11) ${GREEN}Restart"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"12) ${GREEN}Status"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"13) ${GREEN}Monitor"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"14) ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${YELLOW}${LINE2}                 ${ENDCOLOR}
-        read -p "Enter your choice [1-35]: " choice
+        read -p "Enter your choice [1-14]: " choice
         case $choice in
             1)  clear && service_create_all;;
             2)  clear && service_status_all;;
             3)  clear && service_stop_all;;
             4)  clear && service_restart_all;;
-            5)  clear && service_create_gpio_subscriber ;;
-            6)  clear && systemctl restart $name"_"gpio_subscriber.service;;
-            7)  clear && systemctl status $name"_"gpio_subscriber.service;;
-            8)  clear && journalctl -n 100 -u $name"_"gpio_subscriber.service -f;;
-            9)  clear && systemctl stop $name"_"gpio_subscriber.service;;
+            5)  clear && service_create_nats ;;
+            6)  clear && systemctl restart $name"_"nats.service;;
+            7)  clear && systemctl status $name"_"nats.service;;
+            8)  clear && journalctl -n 100 -u $name"_"nats.service -f;;
+            9)  clear && systemctl stop $name"_"nats.service;;
+            10) clear && service_create_gpio_subscriber ;;
+            11) clear && systemctl restart $name"_"gpio_subscriber.service;;
+            12) clear && systemctl status $name"_"gpio_subscriber.service;;
+            13) clear && journalctl -n 100 -u $name"_"gpio_subscriber.service -f;;
+            14) clear && systemctl stop $name"_"gpio_subscriber.service;;
             q)  clear && menu_main;;
             *)  menu_main ;;
         esac
