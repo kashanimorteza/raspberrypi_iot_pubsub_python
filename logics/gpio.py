@@ -71,7 +71,7 @@ class logic_gpio:
 
         #--------------Action
         for item in items:
-            num =+1
+            num +=1
             mode = item.get("mode")
             pin = item.get("pin")
             print(f"{num} - GPIO : load : {pin} : {mode}") 
