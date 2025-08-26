@@ -5,21 +5,17 @@
 # publisher gpio
 
 #--------------------------------------------------------------------------------- Import
-import os, sys, asyncio
+import os, sys, time
 import RPi.GPIO as GPIO
-from nats.aio.client import Client as NATS
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path : sys.path.insert(0, project_root)
-from logics.general import load_config, get_nats_url, get_gpio_params, get_hardware
+from logics.general import load_config, get_hardware
 from logics.gpio import logic_gpio
 
 #--------------------------------------------------------------------------------- Action
 #--------------------------GPIO
 gpio = GPIO
-
-gpio.cleanup()
-
-gpio.setmode(GPIO.BCM)
+gpio.setmode(GPIO.BOARD)
 gpio.setwarnings(False)
 
 #--------------------------Data
@@ -33,7 +29,7 @@ ports = logic.get_port_mod(mode="in")
 #-------------------------- [mode]
 for port in ports : 
     print(f"Interrupt | GPIO | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
-    gpio.setup(port.get("port"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
+    gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
 #-------------------------- [port_callback]
 def port_callback(channel):
@@ -43,7 +39,7 @@ def port_callback(channel):
 
 #-------------------------- [Event]
 for port in ports :
-    gpio.add_event_detect(port.get("port"), gpio.BOTH, callback=port_callback, bouncetime=200)
+    gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
 #-------------------------- [interrupt]
 try:
