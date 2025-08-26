@@ -116,13 +116,23 @@ pip install -r requirements.txt
 
 ## Structure 
 
-<!--------------------------------------------------------------------------------- Note -->
+
+<!--------------------------------------------------------------------------------- Tools -->
 <br><br>
 
-## Note 
-
+## Tools 
+<!-------------------------- Git -->
 Git
 ```bash
 git fetch origin
 git reset --hard origin/main
+```
+<!-------------------------- Network -->
+Network
+```bash
+iwconfig
+nmcli device wifi list
+nmtui
+nmcli device wifi connect "Mori-Android" password "Morteza1001110" ifname wlan0
+nmcli connection modify "Mori-Android" connection.autoconnect yes
 ```
