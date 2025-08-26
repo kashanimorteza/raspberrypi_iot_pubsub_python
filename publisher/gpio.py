@@ -39,7 +39,7 @@ async def run():
     def port_callback(pin):
         value = gpio.input(pin)
         subject = f"interrupt.{hardware}.{module}.{pin}.{value}"
-        print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value} | publish:{subject}")
+        print(f"Interrupt | {module} | Call | {pin} | {value} | {subject}")
         async def _publish():
             try:
                 await nc.publish(subject)
@@ -49,7 +49,7 @@ async def run():
 
     #-------------------------- Listen
     for port in ports : 
-        print(f"{hardware} | Interrupt | {module} | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
+        print(f"{hardware} | Interrupt | {module} | Listen | {port.get('pin')} | {port.get('mode')}")
         gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 

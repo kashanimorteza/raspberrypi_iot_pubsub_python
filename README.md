@@ -114,13 +114,17 @@ pip install -r requirements.txt
 <br><br>
 
 ## Example
-Write value to GPIO
+Write value to GPIO port
 ```bash
 nats pub d1.gpio.write.gpio-1.1 ""
 ```
-Read value from GPIO
+Read value from GPIO port
 ```bash
 nats req d1.gpio.read.gpio-1
+```
+Read value from GPIO interrupt
+```bash
+nats sub interrupt.>
 ```
 
 
