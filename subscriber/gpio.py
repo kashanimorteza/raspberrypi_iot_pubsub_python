@@ -18,7 +18,6 @@ async def run():
 
     #--------------------------Variable
     module = "gpio"
-    result = False
     
     #--------------------------Data
     cfg = load_config()

@@ -42,9 +42,10 @@ async def run():
         gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
     #-------------------------- CallBack
-    def port_callback(channel):
-        value=gpio.input(channel)
-        print(f"{hardware} | Interrupt | {module} | CallBack | pin:{channel} | value:{value}")
+    async def port_callback(pin):
+        value=gpio.input(pin)
+        print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
+        await nc.publish(f"interrupt.{hardware}.{module}.{pin}.{value}", b"aaaaa")
 
     #-------------------------- Handler
     for port in ports :
