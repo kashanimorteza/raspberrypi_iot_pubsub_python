@@ -34,8 +34,7 @@ for port in ports :
 #-------------------------- [port_callback]
 def port_callback(channel):
     value=gpio.input(channel)
-    params = {'protocol': 'gpio', 'port_number': channel, 'value': value}
-    print(params)
+    print(f"Interrupt | GPIO | CallBack | channel:{channel} | value:{channel}")
 
 #-------------------------- [Event]
 for port in ports :
