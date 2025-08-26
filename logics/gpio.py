@@ -72,7 +72,7 @@ class logic_gpio:
         for item in items:
             mode = item.get("mode")
             pin = item.get("pin")
-            print(f"GPIO : load : {mode} : {pin}") 
+            print(f"GPIO : load : {[pin]} : {mode}") 
             if mode == "in" :
                 self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 
