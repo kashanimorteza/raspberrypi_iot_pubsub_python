@@ -27,10 +27,10 @@ gpio = GPIO
 gpio.setmode(GPIO.BOARD)
 gpio.setwarnings(False)
 
-#-------------------------- NATS
-url = get_nats_url(cfg)
-nc = NATS()
-asyncio.create_task(nc.connect(url))
+# #-------------------------- NATS
+# url = get_nats_url(cfg)
+# nc = NATS()
+# asyncio.create_task(nc.connect(url))
 
 #-------------------------- Logic
 logic = logic_gpio(cfg=cfg)
@@ -46,7 +46,7 @@ def port_callback(pin):
     value=gpio.input(pin)
     print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
     print(f"interrupt.{hardware}.{module}.{pin}.{value}")
-    asyncio.create_task(nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa"))
+    #asyncio.create_task(nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa"))
 
 #-------------------------- Handler
 for port in ports :
