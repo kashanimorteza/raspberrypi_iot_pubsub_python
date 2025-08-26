@@ -35,7 +35,7 @@ async def run():
 
     #--------------------------Logic
     logic = logic_gpio(gpio=gpio, cfg=cfg)
-    logic.load()
+    logic.load(mode="out")
     
     #--------------------------Handler
     #------------Write

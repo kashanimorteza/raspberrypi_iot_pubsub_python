@@ -6,7 +6,6 @@
 
 #--------------------------------------------------------------------------------- Import
 from RPi import GPIO as GPIO
-from logics.general import load_config
 
 #--------------------------------------------------------------------------------- Action
 class logic_gpio:
@@ -57,7 +56,7 @@ class logic_gpio:
         return result
 
     #-------------------------- [load]
-    def load(self) -> bool:
+    def load(self,mode) -> bool:
         #--------------Description
         # IN     : cfg=data of config file
         # OUT    : true/false
@@ -71,15 +70,15 @@ class logic_gpio:
 
         #--------------Action
         for item in items:
-            mode = item.get("mode")
+            port_mode = item.get("mode")
             pin = item.get("pin")
             print(f"{self.name} : load : {pin} : {mode}") 
-            if mode == "in" :
-                self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
-            if mode == "out" : 
-                self.gpio.setup(pin, self.gpio.OUT)
-                self.write(pin, 0)
-
+            if port_mode == mode:
+                if mode == "in" :
+                    self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
+                if mode == "out" : 
+                    self.gpio.setup(pin, self.gpio.OUT)
+                    self.write(pin, 0)
         #--------------Output
         return result
 
