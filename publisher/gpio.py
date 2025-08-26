@@ -46,9 +46,12 @@ async def run():
         value=gpio.input(pin)
         print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
         print(f"interrupt.{hardware}.{module}.{pin}.{value}")
-        asyncio.create_task(nc.publish(f"interrupt.{hardware}.{module}.{pin}.{value}", b"aaaaa"))
-        return port_callback
+        port_publish()
 
+    #-------------------------- Publish
+    async def port_publish():
+        await nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa")
+    
     #-------------------------- Handler
     for port in ports :
         gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
