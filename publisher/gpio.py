@@ -49,8 +49,7 @@ async def run():
         print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value} | publish:{subject}")
         async def _publish():
             try:
-                print("aaaaaa")
-                await nc.publish(subject, b"aaaaa")
+                await nc.publish(subject)
             except Exception as e:
                 print(f"Publish error: {e}")
         loop.call_soon_threadsafe(lambda: asyncio.create_task(_publish()))
