@@ -40,7 +40,7 @@ class logic_gpio:
         # IN     : mode=in/out
         # OUT    : list of pins
         # Action : check port that = mode
-        
+
         #--------------Variable
         result = []
 
@@ -50,7 +50,7 @@ class logic_gpio:
         #--------------Action
         for item in items:
             if item.get("mode") == mode : 
-                result.append(item.get("port"))
+                result.append(item)
 
         #--------------Output
         return result

@@ -14,39 +14,37 @@ from logics.general import load_config, get_nats_url, get_gpio_params, get_hardw
 from logics.gpio import logic_gpio
 
 #--------------------------------------------------------------------------------- Action
-#--------------------------Data
-cfg = load_config()
-hardware = get_hardware(cfg)
-
 #--------------------------GPIO
 gpio = GPIO
 gpio.setmode(GPIO.BCM)
 gpio.setwarnings(False)
 
-#--------------------------Pin
+#--------------------------Data
+cfg = load_config()
+hardware = get_hardware(cfg)
+
+#--------------------------Port
 logic = logic_gpio(cfg=cfg)
 ports = logic.get_port_mod(mode="in")
 
 #-------------------------- [mode]
 for port in ports : 
-    print(f"Interrupt GPIO port : {port}")
-    gpio.setup(port, gpio.IN, pull_up_down=gpio.PUD_DOWN)
+    print(f"Interrupt | GPIO | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
+    gpio.setup(port.get("port"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
-# #-------------------------- [pin_callback]
-# def pin_callback(channel):
-#     value=GPIO.input(channel)
-#     print(f"{channel} | {value}", flush=True)
+#-------------------------- [port_callback]
+def port_callback(channel):
+    value=gpio.input(channel)
+    params = {'protocol': 'gpio', 'port_number': channel, 'value': value}
+    print(params)
 
-#     params = {'protocol': PORT_PROTOCOLS.GPIO, 'port_number': channel, 'value': value}
-#     requests.get(f"{url}/raspberrypi/interrupt_load", params=params)
+#-------------------------- [Event]
+for port in ports :
+    gpio.add_event_detect(port.get("port"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
-# #-------------------------- [Event]
-# for pin in pins : 
-#     GPIO.add_event_detect(pin, GPIO.BOTH, callback=pin_callback, bouncetime=200)
-
-# #-------------------------- [interrupt]
-# try:
-#     while True : time.sleep(1)
-# except KeyboardInterrupt:
-#     print("Exiting...")
-#     GPIO.cleanup()
+#-------------------------- [interrupt]
+try:
+    while True : time.sleep(1)
+except KeyboardInterrupt:
+    print("Exiting...")
+    gpio.cleanup()
