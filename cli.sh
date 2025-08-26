@@ -18,7 +18,7 @@ LINE4=$LINE3$LINE3
 path="$( cd "$(dirname "$0")" ; pwd -P )"
 config_file=$path/config.yaml
 api_sh=$path/api.sh
-name=$(yq '.general.name' "$config_file")
+name=$(yq '.general.name' $config_file)
 
 #---------------------------------------------------------------------------------menu
 #--------------------menu_main
