@@ -8,7 +8,7 @@
 ## Install
 
 <!-------------------------- OS -->
-### OS
+OS
 ```
 Download Raspberry Pi Imager
 Download Raspberry Pi OS Lite
@@ -18,7 +18,7 @@ Wifi : Mori-Android Morteza1001110
 ```
 
 <!-------------------------- Configure -->
-### Configure
+Configure
 ```bash
 ssh rasp@10.209.244.237
 ```
@@ -32,7 +32,7 @@ echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCvYjhRa8pdECIlwQQM8BdxY9zd7+fmA2kLBg
 ```
 
 <!-------------------------- Git -->
-### Git
+Git
 ```bash
 sudo apt install git vim 
 sudo git config --global user.email "kashani.morteza@gmail.com"
@@ -54,7 +54,7 @@ sudo chmod 600 /root/.ssh/config
 ```
 
 <!-------------------------- NATS -->
-### NATS
+NATS
 ```bash
 curl -fsSL https://binaries.nats.dev/nats-io/nats-server/v2@latest | sh
 curl -fsSL https://binaries.nats.dev/nats-io/natscli/nats@latest | sh
@@ -64,7 +64,7 @@ sudo mv nats-server-v2.10.20-linux-amd64/nats-server.conf /etc/nats-server.conf
 ```
 
 <!-------------------------- Python -->
-### Python 
+Python 
 ```bash
 add-apt-repository ppa:deadsnakes/ppa
 apt update -y
