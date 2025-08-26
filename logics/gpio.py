@@ -64,17 +64,15 @@ class logic_gpio:
         
         #--------------Variable
         result = False
-        num = 0
 
         #--------------Data
         items = self.get_gpios()
 
         #--------------Action
         for item in items:
-            num +=1
             mode = item.get("mode")
             pin = item.get("pin")
-            print(f"{num} - GPIO : load : {pin} : {mode}") 
+            print(f"GPIO : load : {pin} : {mode}") 
             if mode == "in" :
                 self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 
