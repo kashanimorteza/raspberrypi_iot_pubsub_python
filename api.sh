@@ -42,8 +42,9 @@ service_create_all()
     #----------Header
     echo -e "${YELLOW}service_create_all\n$LINE3${ENDCOLOR}"
 
-    service_create_gpio_subscriber
     service_create_nats
+    service_create_gpio_subscriber
+    service_create_gpio_publisher
 }
 
 #-----------------------------service_status
@@ -52,7 +53,7 @@ service_status_all()
     #----------Header
     echo -e "${YELLOW}service_status\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service" "${name}_gpio_publisher.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         if systemctl is-active --quiet "$service"; then
@@ -69,7 +70,7 @@ service_remove_all()
     #----------Header
     echo -e "${YELLOW}service_remove_all\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service" "${name}_gpio_publisher.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         echo -e "${BLUE}$service${ENDCOLOR}"
@@ -85,7 +86,7 @@ service_stop_all()
     #----------Header
     echo -e "${YELLOW}service_stop_all\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service" "${name}_gpio_publisher.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         echo -e "${BLUE}$service${ENDCOLOR}"
@@ -99,7 +100,7 @@ service_restart_all()
     #----------Header
     echo -e "${YELLOW}service_stop_all\n$LINE3${ENDCOLOR}"
     #----------Variable
-    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service")
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service" "${name}_gpio_publisher.service")
     #----------Action
     for service in "${SERVICES[@]}"; do
         echo -e "${BLUE}$service${ENDCOLOR}"
@@ -154,6 +155,35 @@ service_create_gpio_subscriber()
     User=root
     WorkingDirectory=$path/
     ExecStart=python3 $path/subscriber/gpio.py
+    SuccessExitStatus=143
+    TimeoutStopSec=10
+    Restart=on-failure
+    RestartSec=65
+
+    [Install]
+    WantedBy=multi-user.target""" > /etc/systemd/system/${name}"_"${service_name}.service
+
+    systemctl daemon-reload
+    systemctl enable $name"_"${service_name}
+    systemctl restart $name"_"${service_name}
+}
+#-----------------------------service_create_gpio_publisher
+service_create_gpio_publisher()
+{
+    echo -e "${YELLOW}service_create_gpio_publisher\n$LINE3${ENDCOLOR}"
+
+    #----------Variable
+    service_name=gpio_publisher
+
+    #----------webapi
+    echo -e "${BLUE}$name"_"${service_name}${ENDCOLOR}"
+    echo """[Unit]
+    Description=$name"_"${service_name}
+
+    [Service]
+    User=root
+    WorkingDirectory=$path/
+    ExecStart=python3 $path/publisher/gpio.py
     SuccessExitStatus=143
     TimeoutStopSec=10
     Restart=on-failure
