@@ -5,7 +5,7 @@
 # publisher gpio
 
 #--------------------------------------------------------------------------------- Import
-import os, sys, time, asyncio
+import os, sys, asyncio
 import RPi.GPIO as GPIO
 from nats.aio.client import Client as NATS
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,26 +21,19 @@ async def run():
     #-------------------------- Data
     cfg = load_config()
     hardware = get_hardware(cfg)
-
+    nats_url = get_nats_url(cfg)
+    logic = logic_gpio(cfg=cfg)
+    ports = logic.get_port_mod(mode="in")
+    
     #-------------------------- GPIO
     gpio = GPIO
     gpio.setmode(GPIO.BOARD)
     gpio.setwarnings(False)
 
     #-------------------------- NATS
-    url = get_nats_url(cfg)
     nc = NATS()
-    await nc.connect(url)
+    await nc.connect(nats_url)
     loop = asyncio.get_running_loop()
-
-    #-------------------------- Logic
-    logic = logic_gpio(cfg=cfg)
-    ports = logic.get_port_mod(mode="in")
-
-    #-------------------------- Listen
-    for port in ports : 
-        print(f"{hardware} | Interrupt | {module} | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
-        gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
     #-------------------------- CallBack
     def port_callback(pin):
@@ -54,11 +47,13 @@ async def run():
                 print(f"Publish error: {e}")
         loop.call_soon_threadsafe(lambda: asyncio.create_task(_publish()))
 
-    #-------------------------- Handler
-    for port in ports :
+    #-------------------------- Listen
+    for port in ports : 
+        print(f"{hardware} | Interrupt | {module} | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
+        gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
-    #--------------------------Run
+    #-------------------------- Run
     try:
         while True:
             await asyncio.sleep(1)
