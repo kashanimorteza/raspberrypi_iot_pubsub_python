@@ -14,53 +14,47 @@ from logics.general import load_config, get_hardware, get_nats_url
 from logics.gpio import logic_gpio
 
 #--------------------------------------------------------------------------------- Action
-async def run():
-    #-------------------------- Variable
-    module = "gpio"
 
-    #-------------------------- Data
-    cfg = load_config()
-    hardware = get_hardware(cfg)
+#-------------------------- Variable
+module = "gpio"
 
-    #-------------------------- GPIO
-    gpio = GPIO
-    gpio.setmode(GPIO.BOARD)
-    gpio.setwarnings(False)
+#-------------------------- Data
+cfg = load_config()
+hardware = get_hardware(cfg)
 
-    #-------------------------- NATS
-    url = get_nats_url(cfg)
-    nc = NATS()
-    await nc.connect(url)
+#-------------------------- GPIO
+gpio = GPIO
+gpio.setmode(GPIO.BOARD)
+gpio.setwarnings(False)
 
-    #-------------------------- Logic
-    logic = logic_gpio(cfg=cfg)
-    ports = logic.get_port_mod(mode="in")
+#-------------------------- NATS
+url = get_nats_url(cfg)
+nc = NATS()
+asyncio.create_task(nc.connect(url))
 
-    #-------------------------- Listen
-    for port in ports : 
-        print(f"{hardware} | Interrupt | {module} | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
-        gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
+#-------------------------- Logic
+logic = logic_gpio(cfg=cfg)
+ports = logic.get_port_mod(mode="in")
 
-    #-------------------------- CallBack
-    def port_callback(pin):
-        value=gpio.input(pin)
-        print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
-        print(f"interrupt.{hardware}.{module}.{pin}.{value}")
-        asyncio.create_task(port_publish())
+#-------------------------- Listen
+for port in ports : 
+    print(f"{hardware} | Interrupt | {module} | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
+    gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
-    #-------------------------- Publish
-    async def port_publish():
-        await nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa")
-    
-    #-------------------------- Handler
-    for port in ports :
-        gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
+#-------------------------- CallBack
+def port_callback(pin):
+    value=gpio.input(pin)
+    print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
+    print(f"interrupt.{hardware}.{module}.{pin}.{value}")
+    asyncio.create_task(nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa"))
 
-    #--------------------------Run
-    try:
-        while True : time.sleep(1)
-    except KeyboardInterrupt:
-        print("Exiting...")
-        gpio.cleanup()
+#-------------------------- Handler
+for port in ports :
+    gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
-asyncio.run(run())
+#--------------------------Run
+try:
+    while True : time.sleep(1)
+except KeyboardInterrupt:
+    print("Exiting...")
+    gpio.cleanup()
