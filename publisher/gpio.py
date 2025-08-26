@@ -27,10 +27,10 @@ gpio = GPIO
 gpio.setmode(GPIO.BOARD)
 gpio.setwarnings(False)
 
-# #-------------------------- NATS
-# url = get_nats_url(cfg)
-# nc = NATS()
-# asyncio.create_task(nc.connect(url))
+#-------------------------- NATS
+url = get_nats_url(cfg)
+nc = NATS()
+asyncio.create_task(nc.connect(url))
 
 #-------------------------- Logic
 logic = logic_gpio(cfg=cfg)
