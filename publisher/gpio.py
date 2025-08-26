@@ -46,7 +46,7 @@ async def run():
         value=gpio.input(pin)
         print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
         print(f"interrupt.{hardware}.{module}.{pin}.{value}")
-        port_publish()
+        asyncio.create_task(port_publish())
 
     #-------------------------- Publish
     async def port_publish():
