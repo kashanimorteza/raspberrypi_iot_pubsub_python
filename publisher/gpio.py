@@ -30,7 +30,7 @@ pins = logic.get_port_mod(mode="in")
 #-------------------------- [mode]
 for pin in pins : 
     print(f"Interrupt GPIO Pin : {pin}")
-    #GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    gpio.setup(pin, gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
 # #-------------------------- [pin_callback]
 # def pin_callback(channel):
