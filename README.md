@@ -39,7 +39,7 @@ apt upgrade
 <!-------------------------- Git -->
 Git
 ```bash
-sudo apt install git vim 
+sudo apt install git vim -y
 sudo git config --global user.email "kashani.morteza@gmail.com"
 sudo git config --global user.name "morteza"
 sudo git config --global core.editor vim
@@ -94,7 +94,6 @@ cd raspberrypi_iot_pubsub_python
 ```
 Virtual Environment
 ```bash
-cd /root/raspberrypi_iot_pubsub_python
 python3 -m venv .myenv3
 .myenv3/bin/python3 -m pip install --upgrade pip  
 source .myenv3/bin/activate
