@@ -25,7 +25,7 @@ async def run():
 
     #--------------------------GPIO
     gpio = GPIO
-    gpio.setmode(GPIO.BCM)
+    gpio.setmode(GPIO.BOARD)
     gpio.setwarnings(False)
 
     #--------------------------NATS
@@ -45,11 +45,11 @@ async def run():
         #-data
         name = msg.subject.split('.')[3]
         value = msg.subject.split('.')[4]
-        port = get_gpio_params(cfg, name).get("port")
+        pin = get_gpio_params(cfg, name).get("pin")
         #-action
-        result = logic.write(port, value)
+        result = logic.write(pin, value)
         #-verbose
-        print(f"hardware:{hardware} | module:{module} | method:{method} | name:{name} | port:{port} | value:{value} | result:{result}")
+        print(f"hardware:{hardware} | module:{module} | method:{method} | name:{name} | pin:{pin} | value:{value} | result:{result}")
     await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_write_handler)
     #------------Read
     method = "read"
@@ -57,12 +57,12 @@ async def run():
     async def gpio_read_handler(msg):
         #-data
         name = msg.subject.split('.')[3]
-        port = get_gpio_params(cfg, name).get("port")
+        pin = get_gpio_params(cfg, name).get("pin")
         #-action
-        value = logic.read(port)
+        value = logic.read(pin)
         await nc.publish(msg.reply, str(value).encode())
         #-verbose
-        print(f"hardware:{hardware} | module:{module} | method:{method} | name:{name} | port:{port} | value:{value}")
+        print(f"hardware:{hardware} | module:{module} | method:{method} | name:{name} | pin:{pin} | value:{value}")
     await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_read_handler)
 
     #--------------------------Run

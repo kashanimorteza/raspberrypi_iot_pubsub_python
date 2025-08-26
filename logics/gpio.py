@@ -71,42 +71,42 @@ class logic_gpio:
         #--------------Action
         for item in items:
             mode = item.get("mode")
-            port = item.get("port")
-            print(f"GPIO : load : {mode} : {port}") 
+            pin = item.get("pin")
+            print(f"GPIO : load : {mode} : {pin}") 
             if mode == "in" :
-                self.gpio.setup(port, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
+                self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 
-                self.gpio.setup(port, self.gpio.OUT)
-                self.write(port, 0)
+                self.gpio.setup(pin, self.gpio.OUT)
+                self.write(pin, 0)
 
         #--------------Output
         return result
 
     #-------------------------- [write]
-    def write(self, port, value) -> bool:
+    def write(self, pin, value) -> bool:
         #--------------Description
-        # IN     : port=gpio port number | value=0/1
+        # IN     : pin=gpio pin number | value=0/1
         # OUT    : true/false
-        # Action : on or off gpio port
+        # Action : on or off gpio pin
 
         #--------------Variable
         result = True
         
         #--------------Action
-        self.gpio.output(port, self.gpio.HIGH if value else self.gpio.LOW)
+        self.gpio.output(pin, self.gpio.HIGH if value else self.gpio.LOW)
 
         #--------------Output
         return result
 
     #-------------------------- [read]
-    def read(self, port) -> bool:
+    def read(self, pin) -> bool:
         #--------------Description
-        # IN     : port=gpio port number
-        # OUT    : a number
-        # Action : read gpio port number
+        # IN     : pin=gpio pin number
+        # OUT    : value
+        # Action : read gpio pin value
 
         #--------------Action
-        result = self.gpio.input(port)
+        result = self.gpio.input(pin)
         
         #--------------Output
         return result
