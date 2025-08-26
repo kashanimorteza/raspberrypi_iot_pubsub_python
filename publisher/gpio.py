@@ -61,9 +61,11 @@ async def run():
 
     #--------------------------Run
     try:
-        while True : time.sleep(1)
+        while True:
+            await asyncio.sleep(1)
     except KeyboardInterrupt:
         print("Exiting...")
+    finally:
         gpio.cleanup()
 
 asyncio.run(run())
