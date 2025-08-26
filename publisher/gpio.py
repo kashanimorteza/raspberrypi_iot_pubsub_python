@@ -49,6 +49,7 @@ async def run():
         print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value} | publish:{subject}")
         async def _publish():
             try:
+                print("aaaaaa")
                 await nc.publish(subject, b"aaaaa")
             except Exception as e:
                 print(f"Publish error: {e}")
