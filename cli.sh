@@ -74,24 +74,26 @@ menu_service()
         echo -e  ${YELLOW}"2)  ${GREEN}Status"     ${ENDCOLOR}
         echo -e  ${YELLOW}"3)  ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${YELLOW}"4)  ${GREEN}Restart"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"5)  ${GREEN}Enable"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"6)  ${GREEN}Disable"    ${ENDCOLOR}
         echo -e  ${BLUE}"${LINE1}NATS"  ${ENDCOLOR}
-        echo -e  ${YELLOW}"5)  ${GREEN}Create"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"6)  ${GREEN}Restart"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"7)  ${GREEN}Status"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"8)  ${GREEN}Monitor"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"9)  ${GREEN}Stop"       ${ENDCOLOR}
+        echo -e  ${YELLOW}"7)  ${GREEN}Create"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"8)  ${GREEN}Restart"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"9)  ${GREEN}Status"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"10)  ${GREEN}Monitor"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"11)  ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${BLUE}"${LINE1}GPIO-subscriber"  ${ENDCOLOR}
-        echo -e  ${YELLOW}"10) ${GREEN}Create"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"11) ${GREEN}Restart"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"12) ${GREEN}Status"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"13) ${GREEN}Monitor"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"14) ${GREEN}Stop"       ${ENDCOLOR}
+        echo -e  ${YELLOW}"12) ${GREEN}Create"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"13) ${GREEN}Restart"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"14) ${GREEN}Status"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"15) ${GREEN}Monitor"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"16) ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${BLUE}"${LINE1}GPIO-publisher"  ${ENDCOLOR}
-        echo -e  ${YELLOW}"15) ${GREEN}Create"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"16) ${GREEN}Restart"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"17) ${GREEN}Status"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"18) ${GREEN}Monitor"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"19) ${GREEN}Stop"       ${ENDCOLOR}
+        echo -e  ${YELLOW}"17) ${GREEN}Create"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"18) ${GREEN}Restart"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"19) ${GREEN}Status"     ${ENDCOLOR}
+        echo -e  ${YELLOW}"20) ${GREEN}Monitor"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"21) ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${YELLOW}${LINE2}                 ${ENDCOLOR}
         read -p "Enter your choice [1-19]: " choice
         case $choice in
@@ -99,21 +101,23 @@ menu_service()
             2)  clear && service_status_all;;
             3)  clear && service_stop_all;;
             4)  clear && service_restart_all;;
-            5)  clear && service_create_nats ;;
-            6)  clear && systemctl restart $name"_"nats.service;;
-            7)  clear && systemctl status $name"_"nats.service;;
-            8)  clear && journalctl -n 100 -u $name"_"nats.service -f;;
-            9)  clear && systemctl stop $name"_"nats.service;;
-            10) clear && service_create_gpio_subscriber ;;
-            11) clear && systemctl restart $name"_"gpio_subscriber.service;;
-            12) clear && systemctl status $name"_"gpio_subscriber.service;;
-            13) clear && journalctl -n 100 -u $name"_"gpio_subscriber.service -f;;
-            14) clear && systemctl stop $name"_"gpio_subscriber.service;;
-            15) clear && service_create_gpio_publisher ;;
-            16) clear && systemctl restart $name"_"gpio_publisher.service;;
-            17) clear && systemctl status $name"_"gpio_publisher.service;;
-            18) clear && journalctl -n 100 -u $name"_"gpio_publisher.service -f;;
-            19) clear && systemctl stop $name"_"gpio_publisher.service;;
+            5)  clear && service_enable_all;;
+            6)  clear && service_disable_all;;
+            7)  clear && service_create_nats ;;
+            8)  clear && systemctl restart $name"_"nats.service;;
+            79) clear && systemctl status $name"_"nats.service;;
+            10) clear && journalctl -n 100 -u $name"_"nats.service -f;;
+            11) clear && systemctl stop $name"_"nats.service;;
+            12) clear && service_create_gpio_subscriber ;;
+            13) clear && systemctl restart $name"_"gpio_subscriber.service;;
+            14) clear && systemctl status $name"_"gpio_subscriber.service;;
+            15) clear && journalctl -n 100 -u $name"_"gpio_subscriber.service -f;;
+            16) clear && systemctl stop $name"_"gpio_subscriber.service;;
+            17) clear && service_create_gpio_publisher ;;
+            18) clear && systemctl restart $name"_"gpio_publisher.service;;
+            19) clear && systemctl status $name"_"gpio_publisher.service;;
+            20) clear && journalctl -n 100 -u $name"_"gpio_publisher.service -f;;
+            21) clear && systemctl stop $name"_"gpio_publisher.service;;
             q)  clear && menu_main;;
             *)  menu_main ;;
         esac

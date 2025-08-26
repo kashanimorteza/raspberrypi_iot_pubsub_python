@@ -46,7 +46,6 @@ service_create_all()
     service_create_gpio_subscriber
     service_create_gpio_publisher
 }
-
 #-----------------------------service_status
 service_status_all()
 {
@@ -63,7 +62,6 @@ service_status_all()
         fi
     done
 }
-
 #-----------------------------service_remove_all
 service_remove_all()
 {
@@ -79,7 +77,6 @@ service_remove_all()
     done
     systemctl daemon-reload
 }
-
 #-----------------------------service_stop_all
 service_stop_all()
 {
@@ -93,7 +90,6 @@ service_stop_all()
         systemctl stop $service
     done
 }
-
 #-----------------------------service_restart_all
 service_restart_all()
 {
@@ -108,6 +104,32 @@ service_restart_all()
     done
 }
 
+#-----------------------------service_disable_all
+service_disable_all()
+{
+    #----------Header
+    echo -e "${YELLOW}service_disable_all\n$LINE3${ENDCOLOR}"
+    #----------Variable
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service" "${name}_gpio_publisher.service")
+    #----------Action
+    for service in "${SERVICES[@]}"; do
+        echo -e "${BLUE}$service${ENDCOLOR}"
+        systemctl disable $service
+    done
+}
+#-----------------------------service_enable_all
+service_enable_all()
+{
+    #----------Header
+    echo -e "${YELLOW}service_enable_all\n$LINE3${ENDCOLOR}"
+    #----------Variable
+    SERVICES=("${name}_nats.service" "${name}_gpio_subscriber.service" "${name}_gpio_publisher.service")
+    #----------Action
+    for service in "${SERVICES[@]}"; do
+        echo -e "${BLUE}$service${ENDCOLOR}"
+        systemctl enable $service
+    done
+}
 #-----------------------------service_create_nats
 service_create_nats()
 {
@@ -137,7 +159,6 @@ service_create_nats()
     systemctl enable $name"_"${service_name}
     systemctl restart $name"_"${service_name}
 }
-
 #-----------------------------service_create_gpio_subscriber
 service_create_gpio_subscriber()
 {
