@@ -4,7 +4,7 @@
 #-----------------------------getHeader : Shell
 getHeader()
 {
-    echo -e "${RED}${LINE4}${name}"
+    echo -e ${RED}${LINE4}${name}
 }
 
 #-----------------------------all

@@ -19,7 +19,6 @@ path="$( cd "$(dirname "$0")" ; pwd -P )"
 config_file=$path/config.yaml
 api_sh=$path/api.sh
 name=$(yq '.general.name' "$config_file")
-echo "General name: $GENERAL_NAME"
 
 #---------------------------------------------------------------------------------menu
 #--------------------menu_main
