@@ -1,25 +1,19 @@
-#--------------------------------------------------------------------------------- Location
-# publisher/gpio.py
+import time
+import RPi.GPIO as GPIO
 
-#--------------------------------------------------------------------------------- Description
-# publisher gpio
+GPIO.setmode(GPIO.BCM)
 
-#--------------------------------------------------------------------------------- Import
-import os, sys, asyncio, time
-import RPi.GPIO as gpio
+GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-#-------------------------- [port_callback]
-def port_callback(channel):
-    pass
+def pin_callback(channel):
+    value=GPIO.input(channel)
+    print(f"{channel} | {value}", flush=True)
 
-gpio.setmode(gpio
-.BOARD)
-gpio.setwarnings(False)
-gpio.setup(13, gpio.IN, pull_up_down=gpio.PUD_DOWN)
-gpio.add_event_detect(13, gpio.BOTH, callback=port_callback, bouncetime=200)
+
+GPIO.add_event_detect(17, GPIO.BOTH, callback=pin_callback, bouncetime=200)
 
 try:
     while True : time.sleep(1)
 except KeyboardInterrupt:
     print("Exiting...")
-    gpio.cleanup()
+    GPIO.cleanup()
