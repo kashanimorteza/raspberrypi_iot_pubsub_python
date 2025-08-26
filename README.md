@@ -7,10 +7,55 @@
 
 ## Install
 
+<!-------------------------- OS -->
+### OS
+```
+Download Raspberry Pi Imager
+Download Raspberry Pi OS Lite
+Install OS On MMC Memory With custom configuration
+user : rasp 123456
+Wifi : Mori-Android Morteza1001110
+```
+
+<!-------------------------- Configure -->
+### Configure
+```bash
+ssh rasp@10.209.244.237
+```
+```bash
+sudo su -
+echo "root:123456" | sudo chpasswd
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+systemctl restart ssh
+systemctl restart sshd
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCvYjhRa8pdECIlwQQM8BdxY9zd7+fmA2kLBgppAf8phOR/GZ8AfpzxCduk2iKFktjVQteIKuczXefN4DPeM76M1HG8eZ9BoDiQwIzT/nNuLu19FsY8PexJznhXT3uOwORpoVNrEy6nKsESvUQYlebtiS9ZkmTO2gSjADC3wwSWbw== root@laptop" > /root/.ssh/authorized_keys
+```
+
+<!-------------------------- Git -->
+### Git
+```bash
+sudo apt install git vim 
+sudo git config --global user.email "kashani.morteza@gmail.com"
+sudo git config --global user.name "morteza"
+sudo git config --global core.editor vim
+sudo git config pull.rebase false
+```
+```bash
+rsync -avz /Users/morteza/.ssh/config root@10.209.244.237:/root/.ssh/
+rsync -avz /Users/morteza/.ssh/github-morteza.pub root@10.209.244.237:/root/.ssh/
+rsync -avz /Users/morteza/.ssh/github-morteza.key root@10.209.244.237:/root/.ssh/
+```
+```bash
+sudo chown -R root:root /root/.ssh
+sudo chmod 700 /root/.ssh
+sudo chmod 644 /root/.ssh/github-morteza.pub
+sudo chmod 600 /root/.ssh/github-morteza.key
+sudo chmod 600 /root/.ssh/config
+```
+
 <!-------------------------- NATS -->
 ### NATS
 ```bash
-cd /root
 curl -fsSL https://binaries.nats.dev/nats-io/nats-server/v2@latest | sh
 curl -fsSL https://binaries.nats.dev/nats-io/natscli/nats@latest | sh
 sudo mv ./nats-server /usr/local/bin/
@@ -20,18 +65,29 @@ sudo mv nats-server-v2.10.20-linux-amd64/nats-server.conf /etc/nats-server.conf
 
 <!-------------------------- Python -->
 ### Python 
-Source
-```bash
-git clone git@github.com:kashanimorteza/raspberrypi_iot_pubsub_python.git
-cd raspberrypi_iot_pubsub_python
-```
-Python
 ```bash
 add-apt-repository ppa:deadsnakes/ppa
 apt update -y
 apt install python3 -y
 apt install python3-pip -y
 apt install python3-venv -y
+```
+```bash
+pip install nats-py --break-system-packages
+pip install PyYAML --break-system-packages
+pip install RPi.GPIO --break-system-packages
+```
+
+
+
+<!--------------------------------------------------------------------------------- Source -->
+<br><br>
+
+## Source 
+Download
+```bash
+git clone git@github.com:kashanimorteza/raspberrypi_iot_pubsub_python.git
+cd raspberrypi_iot_pubsub_python
 ```
 Virtual Environment
 ```bash
@@ -41,6 +97,7 @@ python3 -m venv .myenv3
 source .myenv3/bin/activate
 pip install -r requirements.txt  
 ```
+
 
 
 
