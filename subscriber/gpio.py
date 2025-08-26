@@ -39,8 +39,7 @@ async def run():
     
     #--------------------------Handler
     #------------Write
-    method = "write"
-    print(f"{module} : {method}")
+    print(f"{module} : write")
     async def gpio_write_handler(msg):
         #-data
         name = msg.subject.split('.')[3]
@@ -49,11 +48,10 @@ async def run():
         #-action
         result = logic.write(pin, value)
         #-verbose
-        print(f"{module} | {method} | {name} | {pin} | {value} | {result}")
-    await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_write_handler)
+        print(f"{module} | write | {name} | {pin} | {value} | {result}")
+    await nc.subscribe(f"{hardware}.{module}.write.>", cb=gpio_write_handler)
     #------------Read
-    method = "read"
-    print(f"{module} : {method}")
+    print(f"{module} : read")
     async def gpio_read_handler(msg):
         #-data
         name = msg.subject.split('.')[3]
@@ -62,8 +60,8 @@ async def run():
         value = logic.read(pin)
         await nc.publish(msg.reply, str(value).encode())
         #-verbose
-        print(f"{module} | {method} | {name} | {pin} | {value}")
-    await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_read_handler)
+        print(f"{module} | read | {name} | {pin} | {value}")
+    await nc.subscribe(f"{hardware}.{module}.read.>", cb=gpio_read_handler)
 
     #--------------------------Run
     try:
