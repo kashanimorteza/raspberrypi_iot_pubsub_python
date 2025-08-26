@@ -65,7 +65,7 @@ class logic_gpio:
         result = False
 
         #--------------Data
-        items = get_gpios(self.cfg)
+        items = self.get_gpios()
 
         #--------------Action
         for item in items:

@@ -1,8 +1,8 @@
-#--------------------------------------------------------------------------------- location
-# interrupt_gpio.py
+#--------------------------------------------------------------------------------- Location
+# publisher/gpio.py
 
 #--------------------------------------------------------------------------------- Description
-# This is interrupt_gpio
+# publisher gpio
 
 #--------------------------------------------------------------------------------- Import
 import os, sys, asyncio
@@ -12,26 +12,6 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path : sys.path.insert(0, project_root)
 from logics.general import load_config, get_nats_url, get_gpio_params, get_hardware
 from logics.gpio import logic_gpio
-
-
-
-# #--------------------------------------------------------------------------------- Action
-# def get_gpio_value(url, max_retries=5):
-#     retries = 0
-#     while retries < max_retries:
-#         try:
-#             response = requests.get(f"{url}/port/gpio_in")
-#             if response.status_code == 200:
-#                 value = response.json()
-#                 pins = value['data']
-#                 return pins
-#             else:
-#                 raise requests.exceptions.RequestException(f"HTTP {response.status_code}")
-#         except (requests.exceptions.RequestException, KeyError) as e:
-#             retries += 1
-#             if retries < max_retries:
-#                 time.sleep(5)
-#     raise Exception(f"Failed after {max_retries} attempts")
 
 #--------------------------------------------------------------------------------- Action
 #--------------------------Data
@@ -43,20 +23,13 @@ gpio = GPIO
 gpio.setmode(GPIO.BCM)
 gpio.setwarnings(False)
 
-
-
-
-#--------------------------Data
-cfg = load_config()
-hardware = get_hardware(cfg)
-
 #--------------------------Pin
 logic = logic_gpio(cfg=cfg)
 pins = logic.get_port_mod(mode="in")
 
 #-------------------------- [mode]
 for pin in pins : 
-    print(f"Interrupt GPIO : {pin}")
+    print(f"Interrupt GPIO Pin : {pin}")
     #GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # #-------------------------- [pin_callback]
