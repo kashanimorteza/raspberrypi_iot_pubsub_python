@@ -16,6 +16,9 @@ from logics.gpio import logic_gpio
 #--------------------------------------------------------------------------------- Action
 #--------------------------GPIO
 gpio = GPIO
+
+gpio.cleanup()
+
 gpio.setmode(GPIO.BCM)
 gpio.setwarnings(False)
 
