@@ -49,7 +49,7 @@ async def run():
 
     #-------------------------- Listen
     for port in ports : 
-        print(f"{hardware} | Interrupt | {module} | Listen | {port.get('pin')} | {port.get('mode')}")
+        print(f"Interrupt | {module} | Listen | {port.get('pin')} | {port.get('mode')}")
         gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
