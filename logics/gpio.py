@@ -15,6 +15,7 @@ class logic_gpio:
         #--------------Variable
         self.this_class = self.__class__.__name__
         self.modoule = "logic_gpio"
+        self.name = "gpio"
         self.verbose = verbose
         self.log = log
         self.gpio = gpio
@@ -72,7 +73,7 @@ class logic_gpio:
         for item in items:
             mode = item.get("mode")
             pin = item.get("pin")
-            print(f"GPIO : load : {pin} : {mode}") 
+            print(f"{self.name} : load : {pin} : {mode}") 
             if mode == "in" :
                 self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
             if mode == "out" : 

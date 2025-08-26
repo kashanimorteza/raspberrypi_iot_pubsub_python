@@ -40,7 +40,7 @@ async def run():
     #--------------------------Handler
     #------------Write
     method = "write"
-    print(f"hardware:{hardware} | module:{module} | method:{method}")
+    print(f"{module} : {method}")
     async def gpio_write_handler(msg):
         #-data
         name = msg.subject.split('.')[3]
@@ -53,7 +53,7 @@ async def run():
     await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_write_handler)
     #------------Read
     method = "read"
-    print(f"hardware:{hardware} | module:{module} | method:{method}")
+    print(f"{module} : {method}")
     async def gpio_read_handler(msg):
         #-data
         name = msg.subject.split('.')[3]
