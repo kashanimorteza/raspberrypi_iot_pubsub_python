@@ -124,7 +124,7 @@ nats req d1.gpio.read.gpio-1
 ```
 Read value from GPIO interrupt
 ```bash
-nats sub interrupt.>
+nats sub 'interrupt.>'
 ```
 
 
