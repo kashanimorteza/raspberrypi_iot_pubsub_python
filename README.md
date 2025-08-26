@@ -35,11 +35,11 @@ ssh root@10.209.244.237
 ```bash
 apt update
 apt upgrade
+sudo apt install -y jq yq git vim
 ```
 <!-------------------------- Git -->
 Git
 ```bash
-sudo apt install git vim -y
 sudo git config --global user.email "kashani.morteza@gmail.com"
 sudo git config --global user.name "morteza"
 sudo git config --global core.editor vim

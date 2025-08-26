@@ -16,45 +16,12 @@ LINE4=$LINE3$LINE3
 
 #-----------------------------Variable
 path="$( cd "$(dirname "$0")" ; pwd -P )"
+config_file=$path/config.yaml
 api_sh=$path/api.sh
-if ! which sqlite3; then
-    sudo apt update
-    sudo apt install -y sqlite3
-fi
-DB_FILE="database.db"
-QUERY="SELECT * FROM config;"
-QUERY_RESULT=$(sqlite3 "$DB_FILE" "$QUERY")
-IFS='|' read -ra DATA_ARRAY <<< "$QUERY_RESULT"
-name=${DATA_ARRAY[1]}
-timeZone=${DATA_ARRAY[2]}
-path_api=${DATA_ARRAY[3]}
-path_gui=${DATA_ARRAY[4]}
-webapi_title=${DATA_ARRAY[5]}
-webapi_description=${DATA_ARRAY[6]}
-webapi_version=${DATA_ARRAY[7]}
-webapi_openapi_url=${DATA_ARRAY[8]}
-webapi_docs_url=${DATA_ARRAY[9]}
-webapi_redoc_url=${DATA_ARRAY[10]}
-webapi_key=${DATA_ARRAY[11]}
-webapi_host=${DATA_ARRAY[12]}
-webapi_port=${DATA_ARRAY[13]}
-webapi_workers=${DATA_ARRAY[14]}
-nginx_api_host=${DATA_ARRAY[15]}
-nginx_api_port=${DATA_ARRAY[16]}
-nginx_api_key=${DATA_ARRAY[17]}
-nginx_gui_host=${DATA_ARRAY[18]}
-nginx_gui_port=${DATA_ARRAY[19]}
-nginx_gui_key=${DATA_ARRAY[20]}
-git_email=${DATA_ARRAY[21]}
-git_name=${DATA_ARRAY[22]}
-git_key=${DATA_ARRAY[23]}
-hotspod_ssid=${DATA_ARRAY[24]}
-hotspod_ip=${DATA_ARRAY[25]}
-hotspod_pass=${DATA_ARRAY[26]}
-wifi_ssid=${DATA_ARRAY[27]}
-wifi_ip=${DATA_ARRAY[28]}
-wifi_pass=${DATA_ARRAY[29]}
-    
+name=$(yq '.general.name' "$YAML_FILE")
+echo "General name: $GENERAL_NAME"
+exit
+
 #---------------------------------------------------------------------------------menu
 #--------------------menu_main
 menu_main()
