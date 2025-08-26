@@ -104,16 +104,6 @@ source .myenv3/bin/activate
 pip install -r requirements.txt  
 ```
 
-
-
-
-<!--------------------------------------------------------------------------------- Tools -->
-<br><br>
-
-## Tools 
-```bash
-```
-
 <!--------------------------------------------------------------------------------- Structure -->
 <br><br>
 
@@ -124,12 +114,11 @@ pip install -r requirements.txt
 <br><br>
 
 ## Example
-### GPIO
-Write value
+Write value to GPIO
 ```bash
 nats pub d1.gpio.write.gpio-1.1 ""
 ```
-Read value
+Read value from GPIO
 ```bash
 nats req d1.gpio.read.gpio-1
 ```
