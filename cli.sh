@@ -19,6 +19,8 @@ path="$( cd "$(dirname "$0")" ; pwd -P )"
 config_file=$path/config.yaml
 api_sh=$path/api.sh
 name=$(yq '.general.name' $config_file)
+name=$(echo "$name" | tr -d '"')
+
 
 #---------------------------------------------------------------------------------menu
 #--------------------menu_main
