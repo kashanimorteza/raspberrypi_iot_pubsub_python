@@ -209,8 +209,8 @@ __marimo__/
 
 
 __pycache__/
-.myenv3
-.vscode
+#.myenv3
+#.vscode
 .git
 *.swp
 *.lock
