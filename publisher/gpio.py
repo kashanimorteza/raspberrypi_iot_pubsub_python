@@ -28,13 +28,13 @@ ports = logic.get_port_mod(mode="in")
 
 #-------------------------- [mode]
 for port in ports : 
-    print(f"Interrupt | GPIO | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
+    print(f"{hardware} | Interrupt | GPIO | Listen | pin:{port.get('pin')} | port:{port.get('port')} | mod:{port.get('mode')}")
     gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
 
 #-------------------------- [port_callback]
 def port_callback(channel):
     value=gpio.input(channel)
-    print(f"Interrupt | GPIO | CallBack | channel:{channel} | value:{value}")
+    print(f"{hardware} | Interrupt | GPIO | CallBack | channel:{channel} | value:{value}")
 
 #-------------------------- [Event]
 for port in ports :
