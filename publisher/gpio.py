@@ -46,7 +46,7 @@ async def run():
         value=gpio.input(pin)
         print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
         print(f"interrupt.{hardware}.{module}.{pin}.{value}")
-        await nc.publish("aaa", b"aaaaa")
+        await nc.publish(f"interrupt.{hardware}.{module}.{pin}.{value}", b"aaaaa")
 
     #-------------------------- Handler
     for port in ports :
