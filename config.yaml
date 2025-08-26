@@ -8,168 +8,168 @@ nats:
 chip:
   #------------------------- gpio
   gpio:
-    #----- gpio-1
-    gpio-1:
+    #----- gpio-11
+    gpio-11:
       pin: 11
       port: 17
       value: 0
       mode: out
       description: P-Motor
       enable: true
-    #----- gpio-2
-    gpio-2:
+    #----- gpio-12
+    gpio-12:
       pin: 12
       port: 18
       value: 0
       mode: out
       description: P-Shir
       enable: true
-    #----- gpio-3
-    gpio-3:
+    #----- gpio-13
+    gpio-13:
       pin: 13
       port: 27
       value: 0
       mode: out
       description: P-Light
       enable: true
-    #----- gpio-4
-    gpio-4:
+    #----- gpio-15
+    gpio-15:
       pin: 15
       port: 22
       value: 0
       mode: out
       description: J-Motor
       enable: true
-    #----- gpio-5
-    gpio-5:
+    #----- gpio-16
+    gpio-16:
       pin: 16
       port: 23
       value: 0
       mode: out
       description: J-Shir
       enable: true
-    #----- gpio-6
-    gpio-6:
+    #----- gpio-18
+    gpio-18:
       pin: 18
       port: 24
       value: 0
       mode: out
       description: J-Light
       enable: true
-    #----- gpio-7
-    gpio-7:
+    #----- gpio-19
+    gpio-19:
       pin: 19
       port: 10
       value: 0
       mode: in
       description: J-Fuse
       enable: true
-    #----- gpio-8
-    gpio-8:
+    #----- gpio-21
+    gpio-21:
       pin: 21
       port: 9
       value: 0
       mode: out
       description: J-Erjet
       enable: true
-    #----- gpio-9
-    gpio-9:
+    #----- gpio-22
+    gpio-22:
       pin: 22
       port: 25
       value: 0
       mode: out
       description: SD-Hiter
       enable: true
-    #----- gpio-10
-    gpio-10:
+    #----- gpio-23
+    gpio-23:
       pin: 23
       port: 11
       value: 0
       mode: out
       description: SD-Light
       enable: true
-    #----- gpio-11
-    gpio-11:
+    #----- gpio-24
+    gpio-24:
       pin: 24
       port: 8
       value: 0
       mode: out
       description: F-Motor
       enable: true
-    #----- gpio-12
-    gpio-12:
+    #----- gpio-26
+    gpio-26:
       pin: 26
       port: 7
       value: 0
       mode: out
       description: C-Motor
       enable: true
-    #----- gpio-13
-    gpio-13:
+    #----- gpio-29
+    gpio-29:
       pin: 29
       port: 5
       value: 0
       mode: out
       description: SS-Shir
       enable: true
-    #----- gpio-14
-    gpio-14:
+    #----- gpio-31
+    gpio-31:
       pin: 31
       port: 6
       value: 0
       mode: out
       description: SS-Hiter
       enable: true
-    #----- gpio-15
-    gpio-15:
+    #----- gpio-32
+    gpio-32:
       pin: 32
       port: 12
       value: 0
       mode: out
       description: SS-Light
       enable: true
-    #----- gpio-16
-    gpio-16:
+    #----- gpio-33
+    gpio-33:
       pin: 33
       port: 13
       value: 0
       mode: in
       description: SS-WH
       enable: true
-    #----- gpio-17
-    gpio-17:
+    #----- gpio-35
+    gpio-35:
       pin: 35
       port: 19
       value: 0
       mode: in
       description: SS-WL
       enable: true
-    #----- gpio-18
-    gpio-18:
+    #----- gpio-36
+    gpio-36:
       pin: 36
       port: 16
       value: 0
       mode: out
       description: SS-Esans
       enable: true
-    #----- gpio-19
-    gpio-19:
+    #----- gpio-37
+    gpio-37:
       pin: 37
       port: 26
       value: 0
       mode: out
       description: SS-Takhlie
       enable: true
-    #----- gpio-20
-    gpio-20:
+    #----- gpio-38
+    gpio-38:
       pin: 38
       port: 20
       value: 0
       mode: out
       description: C-Light
       enable: true
-    #----- gpio-21
-    gpio-21:
+    #----- gpio-40
+    gpio-40:
       pin: 40
       port: 21
       value: 0
@@ -179,8 +179,8 @@ chip:
 
   #------------------------- 1-wire
   1-wire:
-    #----- 1-wire-1
-    1-wire-1:
+    #----- 1wire-7
+    1wire-7:
       pin: 7
       port: 4
       value: 0
@@ -190,15 +190,15 @@ chip:
 
   #------------------------- reserved
   reserved:
-    #----- reserved-1
-    reserved-1:
+    #----- reserved-27
+    reserved-27:
       pin: 27
       value: 0
       mode: in
       description: Reserved
       enable: true
-    #----- reserved-2
-    reserved-2:
+    #----- reserved-28
+    reserved-28:
       pin: 28
       value: 0
       mode: in
@@ -221,15 +221,15 @@ chip:
       mode: PWR
       description: PWR-2
       enable: true
-    #----- pwr-3
-    pwr-3:
+    #----- pwr-4
+    pwr-4:
       pin: 4
       value: 5
       mode: PWR
       description: PWR-3
       enable: true
-    #----- pwr-4
-    pwr-4:
+    #----- pwr-17
+    pwr-17:
       pin: 17
       value: 3
       mode: PWR
@@ -238,59 +238,57 @@ chip:
 
   #------------------------- gnd
   gnd:
-    #----- gnd-1
-    gnd-1:
+    #----- gnd-6
+    gnd-6:
       pin: 6
       value: 0
       mode: GND
       description: GND-1
       enable: true
-    #----- gnd-2
-    gnd-2:
+    #----- gnd-9
+    gnd-9:
       pin: 9
       value: 0
       mode: GND
       description: GND-2
       enable: true
-    #----- gnd-3
-    gnd-3:
+    #----- gnd-14
+    gnd-14:
       pin: 14
       value: 0
       mode: GND
       description: GND-3
       enable: true
-
-    #----- gnd-4
-    gnd-4:
+    #----- gnd-20
+    gnd-20:
       pin: 20
       value: 0
       mode: GND
       description: GND-4
       enable: true
-
-    #----- gnd-5
-    gnd-5:
+    #----- gnd-25
+    gnd-25:
       pin: 25
       value: 0
       mode: GND
       description: GND-5
       enable: true
-    #----- gnd-6
-    gnd-6:
+    #----- gnd-30
+    gnd-30:
       pin: 30
       value: 0
       mode: GND
       description: GND-6
       enable: true
-    #----- gnd-7
-    gnd-7:
+    #----- gnd-34
+    gnd-34:
       pin: 34
       value: 0
       mode: GND
       description: GND-7
       enable: true
-    #----- gnd-8
-    gnd-8:
+    #----- gnd-39
+    gnd-39:
       pin: 39
       value: 0
       mode: GND
@@ -299,16 +297,16 @@ chip:
 
   #------------------------- i2c
   i2c:
-    #----- i2c-1
-    i2c-1:
+    #----- i2c-3
+    i2c-3:
       pin: 3
       port: 2
       value: 0
       mode: SDA
       description: I2C-SDA
       enable: true
-    #----- i2c-2
-    i2c-2:
+    #----- i2c-5
+    i2c-5:
       pin: 5
       port: 3
       value: 0
@@ -318,16 +316,16 @@ chip:
 
   #------------------------- uart
   uart:
-    #----- uart-1
-    uart-1:
+    #----- uart-8
+    uart-8:
       pin: 8
       port: 0
       value: 0
       mode: TX
       description: UART-TX
       enable: true
-    #----- uart-2
-    uart-2:
+    #----- uart-10
+    uart-10:
       pin: 10
       port: 0
       value: 0

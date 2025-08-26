@@ -49,7 +49,7 @@ async def run():
         #-action
         result = logic.write(pin, value)
         #-verbose
-        print(f"hardware:{hardware} | module:{module} | method:{method} | name:{name} | pin:{pin} | value:{value} | result:{result}")
+        print(f"{module} | {method} | {name} | {pin} | {value} | {result}")
     await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_write_handler)
     #------------Read
     method = "read"
@@ -62,7 +62,7 @@ async def run():
         value = logic.read(pin)
         await nc.publish(msg.reply, str(value).encode())
         #-verbose
-        print(f"hardware:{hardware} | module:{module} | method:{method} | name:{name} | pin:{pin} | value:{value}")
+        print(f"{module} | {method} | {name} | {pin} | {value}")
     await nc.subscribe(f"{hardware}.{module}.{method}.>", cb=gpio_read_handler)
 
     #--------------------------Run

@@ -120,6 +120,20 @@ pip install -r requirements.txt
 ## Structure 
 
 
+<!--------------------------------------------------------------------------------- Example -->
+<br><br>
+
+## Example
+### GPIO
+Write value
+```bash
+nats pub d1.gpio.write.gpio-1.1 ""
+```
+Read value
+```bash
+nats req d1.gpio.read.gpio-1
+```
+
 
 <!--------------------------------------------------------------------------------- Tools -->
 <br><br>
