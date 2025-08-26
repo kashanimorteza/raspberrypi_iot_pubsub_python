@@ -1,1 +1,3 @@
-i need get cfg on logics/gpio.py on __init__ method on input variable
+read publisher/gpio.py
+i need publish on port_callback like this :
+nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa")

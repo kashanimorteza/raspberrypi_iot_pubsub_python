@@ -31,6 +31,7 @@ async def run():
     url = get_nats_url(cfg)
     nc = NATS()
     await nc.connect(url)
+    loop = asyncio.get_running_loop()
 
     #-------------------------- Logic
     logic = logic_gpio(cfg=cfg)
@@ -43,10 +44,16 @@ async def run():
 
     #-------------------------- CallBack
     def port_callback(pin):
-        value=gpio.input(pin)
+        value = gpio.input(pin)
+        subject = f"interrupt.{hardware}.{module}.{pin}.{value}"
         print(f"{hardware} | Interrupt | {module} | CallBack | pin:{pin} | value:{value}")
-        print(f"interrupt.{hardware}.{module}.{pin}.{value}")
-        #await nc.publish(f"interrupt.{hardware}.{module}.19.1", b"aaaaa")
+        print(subject)
+        async def _publish():
+            try:
+                await nc.publish(subject, b"aaaaa")
+            except Exception as e:
+                print(f"Publish error: {e}")
+        loop.call_soon_threadsafe(lambda: asyncio.create_task(_publish()))
 
     #-------------------------- Handler
     for port in ports :
