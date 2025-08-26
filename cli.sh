@@ -80,8 +80,8 @@ menu_service()
         echo -e  ${YELLOW}"7)  ${GREEN}Create"     ${ENDCOLOR}
         echo -e  ${YELLOW}"8)  ${GREEN}Restart"    ${ENDCOLOR}
         echo -e  ${YELLOW}"9)  ${GREEN}Status"     ${ENDCOLOR}
-        echo -e  ${YELLOW}"10)  ${GREEN}Monitor"    ${ENDCOLOR}
-        echo -e  ${YELLOW}"11)  ${GREEN}Stop"       ${ENDCOLOR}
+        echo -e  ${YELLOW}"10) ${GREEN}Monitor"    ${ENDCOLOR}
+        echo -e  ${YELLOW}"11) ${GREEN}Stop"       ${ENDCOLOR}
         echo -e  ${BLUE}"${LINE1}GPIO-subscriber"  ${ENDCOLOR}
         echo -e  ${YELLOW}"12) ${GREEN}Create"     ${ENDCOLOR}
         echo -e  ${YELLOW}"13) ${GREEN}Restart"    ${ENDCOLOR}
