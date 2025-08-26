@@ -6,7 +6,7 @@
 
 #--------------------------------------------------------------------------------- Import
 from RPi import GPIO as GPIO
-from logics.general import get_gpios, load_config
+from logics.general import load_config
 
 #--------------------------------------------------------------------------------- Action
 class logic_gpio:
@@ -19,6 +19,40 @@ class logic_gpio:
         self.log = log
         self.gpio = gpio
         self.cfg = cfg
+
+    #-------------------------- get_gpios
+    def get_gpios(self):
+        chip = self.cfg.get("chip", {})
+        gpios = chip.get("gpio", {})
+        if not isinstance(gpios, dict):
+            return []
+        items = []
+        for name, spec in gpios.items():
+            if isinstance(spec, dict):
+                item = dict(spec)
+                item.setdefault("name", name)
+                items.append(item)
+        return items
+
+    #-------------------------- [get_port_mod]
+    def get_port_mod(self, mode):
+        #--------------Description
+        # IN     : mode=in/out
+        # OUT    : list of pins
+        # Action : check port that = mode
+        
+        #--------------Variable
+        result = []
+
+        #--------------Data
+        items = self.get_gpios()
+
+        #--------------Action
+        for item in items:
+            if item.get("mode") == mode : result.append(item.get("pin"))
+
+        #--------------Output
+        return result
 
     #-------------------------- [load]
     def load(self) -> bool:

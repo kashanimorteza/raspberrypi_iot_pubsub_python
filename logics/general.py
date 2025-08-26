@@ -28,20 +28,6 @@ def get_hardware(cfg):
     hardware = nats_cfg.get("hardware")
     return hardware
 
-#-------------------------- get_gpios
-def get_gpios(cfg):
-    chip = cfg.get("chip", {})
-    gpios = chip.get("gpio", {})
-    if not isinstance(gpios, dict):
-        return []
-    items = []
-    for name, spec in gpios.items():
-        if isinstance(spec, dict):
-            item = dict(spec)
-            item.setdefault("name", name)
-            items.append(item)
-    return items
-
 #-------------------------- get_gpio_params
 def get_gpio_params(cfg, gpio_name):
     chip = cfg.get("chip", {})
