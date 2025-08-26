@@ -77,6 +77,7 @@ apt install python3-venv -y
 ```
 ```bash
 pip install PyYAML --break-system-packages
+pip install nats-py --break-system-packages
 ```
 ```bash
 pip uninstall nats-py --break-system-packages
