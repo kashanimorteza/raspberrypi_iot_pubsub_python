@@ -24,4 +24,4 @@ gpio.setwarnings(False)
 #--------------------------Logic
 logic = logic_gpio(gpio=gpio, cfg=cfg)
 logic.load(mode="out")
-logic.load(mode="in")
+#logic.load(mode="in")
