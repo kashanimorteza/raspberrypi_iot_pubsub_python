@@ -18,6 +18,7 @@ async def run():
 
     #--------------------------Variable
     module = "gpio"
+    logic = logic_gpio(gpio=gpio, cfg=cfg)
     
     #--------------------------Data
     cfg = load_config()
@@ -33,9 +34,9 @@ async def run():
     nc = NATS()
     await nc.connect(url)
 
-    #--------------------------Logic
-    logic = logic_gpio(gpio=gpio, cfg=cfg)
-    logic.load(mode="out")
+    # #--------------------------Logic
+    # logic = logic_gpio(gpio=gpio, cfg=cfg)
+    # logic.load(mode="out")
     
     #--------------------------Handler
     #------------Write
