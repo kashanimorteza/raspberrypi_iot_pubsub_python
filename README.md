@@ -79,13 +79,6 @@ apt install python3-venv -y
 pip install PyYAML --break-system-packages
 pip install nats-py --break-system-packages
 ```
-```bash
-pip uninstall nats-py --break-system-packages
-pip uninstall PyYAML --break-system-packages
-pip uninstall RPi.GPIO --break-system-packages
-```
-
-
 
 <!--------------------------------------------------------------------------------- Source -->
 <br><br>
@@ -104,12 +97,6 @@ source .myenv3/bin/activate
 pip install -r requirements.txt  
 ```
 
-<!--------------------------------------------------------------------------------- Structure -->
-<br><br>
-
-## Structure 
-
-
 <!--------------------------------------------------------------------------------- Example -->
 <br><br>
 
@@ -126,7 +113,6 @@ Read value from GPIO interrupt
 ```bash
 nats sub 'interrupt.>'
 ```
-
 
 <!--------------------------------------------------------------------------------- Tools -->
 <br><br>
