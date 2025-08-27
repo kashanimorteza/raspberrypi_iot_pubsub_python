@@ -198,14 +198,14 @@ chip:
     reserved-27:
       pin: 27
       value: 0
-      mode: in
+      mode: 
       description: Reserved
       enable: true
     #----- reserved-28
     reserved-28:
       pin: 28
       value: 0
-      mode: in
+      mode: 
       description: Reserved
       enable: true
 
