@@ -15,21 +15,24 @@ from logics.gpio import logic_gpio
 
 #--------------------------------------------------------------------------------- Action
 async def run():
+
     #-------------------------- Variable
     module = "gpio"
 
-    #-------------------------- Data
-    cfg = load_config()
-    hardware = get_hardware(cfg)
-    nats_url = get_nats_url(cfg)
-    logic = logic_gpio(cfg=cfg)
-    ports = logic.get_port_mod(mode="in")
-    
     #-------------------------- GPIO
     gpio = GPIO
     gpio.setmode(GPIO.BOARD)
     gpio.setwarnings(False)
 
+    #-------------------------- Data
+    cfg = load_config()
+    hardware = get_hardware(cfg)
+    nats_url = get_nats_url(cfg)
+
+    #--------------------------Instance
+    logic = logic_gpio(cfg=cfg)
+    ports = logic.get_port_mod(mode="in")
+    
     #-------------------------- NATS
     nc = NATS()
     await nc.connect(nats_url)
@@ -50,7 +53,6 @@ async def run():
     #-------------------------- Listen
     for port in ports : 
         print(f"Interrupt | {module} | Listen | {port.get('pin')} | {port.get('mode')}")
-        #gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
     #-------------------------- Run
