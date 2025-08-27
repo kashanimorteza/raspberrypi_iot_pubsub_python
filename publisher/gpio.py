@@ -30,7 +30,8 @@ async def run():
     nats_url = get_nats_url(cfg)
 
     #--------------------------Instance
-    logic = logic_gpio(cfg=cfg)
+    logic = logic_gpio(gpio=gpio, cfg=cfg)
+    logic.load(mode="in")
     ports = logic.get_port_mod(mode="in")
     
     #-------------------------- NATS
@@ -50,10 +51,10 @@ async def run():
                 print(f"Publish error: {e}")
         loop.call_soon_threadsafe(lambda: asyncio.create_task(_publish()))
 
+
     #-------------------------- Listen
     for port in ports : 
         print(f"Interrupt | {module} | Listen | {port.get('pin')} | {port.get('mode')}")
-        gpio.setup(port.get("pin"), gpio.IN, pull_up_down=gpio.PUD_DOWN)
         gpio.add_event_detect(port.get("pin"), gpio.BOTH, callback=port_callback, bouncetime=200)
 
     #-------------------------- Run
