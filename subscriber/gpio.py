@@ -12,6 +12,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path : sys.path.insert(0, project_root)
 from logics.general import load_config, get_nats_url, get_gpio_params, get_hardware
 from logics.gpio import logic_gpio
+import logics.chip 
 
 #--------------------------------------------------------------------------------- Action
 async def run():
@@ -41,7 +42,7 @@ async def run():
     print(f"{module} : write")
     async def gpio_write_handler(msg):
         #-data
-        name = msg.subject.split('.')[3]
+        name = msg.subject.split('.')[4]
         value = msg.data.decode()
         pin = get_gpio_params(cfg, name).get("pin")
         #-action

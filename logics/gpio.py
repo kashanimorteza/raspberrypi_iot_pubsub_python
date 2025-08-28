@@ -93,12 +93,8 @@ class logic_gpio:
         result = True
         
         #--------------Action
-        print(f"write | {pin} | {value}")
-        if value == 1:
-            self.gpio.output(pin, self.gpio.HIGH)
-        else:
-            self.gpio.output(pin, self.gpio.LOW)
-        
+        self.gpio.output(pin, self.gpio.HIGH if value else self.gpio.LOW)
+
         #--------------Output
         return result
 
