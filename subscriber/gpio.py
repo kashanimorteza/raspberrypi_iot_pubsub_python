@@ -45,10 +45,9 @@ async def run():
         value = msg.data.decode()
         pin = get_gpio_params(cfg, name).get("pin")
         #-action
-        #result = logic.write(pin, value)
-        result = True
+        result = logic.write(pin, 1)
         #-verbose
-        print(f"{module} | write | {name} | {pin} | {value} | {result}")
+        print(f"{module} | write | out | {name} | {pin} | {value} | {result}")
     await nc.subscribe(f"{hardware}.{module}.out.write.>", cb=gpio_write_handler)
     #------------Read
     print(f"{module} : read")
@@ -60,7 +59,7 @@ async def run():
         value = logic.read(pin)
         await nc.publish(msg.reply, str(value).encode())
         #-verbose
-        print(f"{module} | read | {name} | {pin} | {value}")
+        print(f"{module} | read | in | {name} | {pin} | {value}")
     await nc.subscribe(f"{hardware}.{module}.in.read.>", cb=gpio_read_handler)
 
     #--------------------------Run
