@@ -42,7 +42,7 @@ async def run():
     #-------------------------- CallBack
     def port_callback(pin):
         value = gpio.input(pin)
-        subject = f"interrupt.{hardware}.{module}.{pin}.{value}"
+        subject = f"interrupt.{hardware}.{module}.out.{pin}.{value}"
         print(f"Interrupt | {module} | Call | {pin} | {value} | {subject}")
         async def _publish():
             try:
@@ -50,7 +50,6 @@ async def run():
             except Exception as e:
                 print(f"Publish error: {e}")
         loop.call_soon_threadsafe(lambda: asyncio.create_task(_publish()))
-
 
     #-------------------------- Listen
     for port in ports : 

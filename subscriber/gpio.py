@@ -48,7 +48,7 @@ async def run():
         result = logic.write(pin, value)
         #-verbose
         print(f"{module} | write | {name} | {pin} | {value} | {result}")
-    await nc.subscribe(f"{hardware}.{module}.write.>", cb=gpio_write_handler)
+    await nc.subscribe(f"{hardware}.{module}.out.write.>", cb=gpio_write_handler)
     #------------Read
     print(f"{module} : read")
     async def gpio_read_handler(msg):
@@ -60,7 +60,7 @@ async def run():
         await nc.publish(msg.reply, str(value).encode())
         #-verbose
         print(f"{module} | read | {name} | {pin} | {value}")
-    await nc.subscribe(f"{hardware}.{module}.read.>", cb=gpio_read_handler)
+    await nc.subscribe(f"{hardware}.{module}.in.read.>", cb=gpio_read_handler)
 
     #--------------------------Run
     try:
