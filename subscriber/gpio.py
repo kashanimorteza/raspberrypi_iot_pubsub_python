@@ -43,11 +43,9 @@ async def run():
         #-data
         name = msg.subject.split('.')[3]
         value = msg.data.decode()
-        print(value)
         pin = get_gpio_params(cfg, name).get("pin")
         #-action
-        #result = logic.write(pin, value)
-        result = True
+        result = logic.write(pin, value)
         #-verbose
         print(f"{module} | write | {name} | {pin} | {value} | {result}")
     await nc.subscribe(f"{hardware}.{module}.out.write.>", cb=gpio_write_handler)
