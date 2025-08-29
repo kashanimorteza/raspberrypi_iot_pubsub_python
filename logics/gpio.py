@@ -82,7 +82,7 @@ class logic_gpio:
                 print(f"{self.name} : load : {name} : {pin} : {port_mode}")
         #--------------Output
         return result
-
+    
     #-------------------------- [write]
     def write(self, pin, value) -> bool:
         #--------------Description

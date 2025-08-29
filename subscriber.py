@@ -10,16 +10,12 @@ import RPi.GPIO as GPIO
 from nats.aio.client import Client as NATS
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path : sys.path.insert(0, project_root)
-from logics.general import load_config, get_nats_url, get_gpio_params, get_hardware
+from logics.general import load_config, get_nats_url, get_hardware, get_msg_dict
 from logics.gpio import logic_gpio
 import logics.chip 
 
 #--------------------------------------------------------------------------------- Action
 async def run():
-
-    #--------------------------Variable
-    module = "gpio"
-
     #--------------------------GPIO
     gpio = GPIO
     gpio.setmode(GPIO.BOARD)
@@ -30,7 +26,7 @@ async def run():
     hardware = get_hardware(cfg)
 
     #--------------------------Instance
-    logic = logic_gpio(gpio=gpio, cfg=cfg)
+    logic_gpio_instance = logic_gpio(gpio=gpio, cfg=cfg)
     
     #--------------------------NATS
     url = get_nats_url(cfg)
@@ -38,30 +34,23 @@ async def run():
     await nc.connect(url)
     
     #--------------------------Handler
-    #------------Write
-    print(f"{module} : write")
-    async def gpio_write_handler(msg):
-        #-data
-        name = msg.subject.split('.')[4]
-        value = msg.data.decode()
-        pin = get_gpio_params(cfg, name).get("pin")
-        #-action
-        result = logic.write(pin, value)
-        #-verbose
-        print(f"{module} | write | out | {name} | {pin} | {value} | {result}")
-    await nc.subscribe(f"{hardware}.{module}.out.write.>", cb=gpio_write_handler)
-    #------------Read
-    print(f"{module} : read")
-    async def gpio_read_handler(msg):
-        #-data
-        name = msg.subject.split('.')[3]
-        pin = get_gpio_params(cfg, name).get("pin")
-        #-action
-        value = logic.read(pin)
-        await nc.publish(msg.reply, str(value).encode())
-        #-verbose
-        print(f"{module} | read | in | {name} | {pin} | {value}")
-    await nc.subscribe(f"{hardware}.{module}.in.read.>", cb=gpio_read_handler)
+    async def handler(msg):
+        #---Data
+        data = get_msg_dict(msg)
+        protocol = data.get("protocol")
+        method = data.get("method")
+        address = data.get("address")
+        value = data.get("value")
+        #---Action
+        if protocol == "gpio":
+            if method == "write":
+                result = logic_gpio_instance.write(address, value)
+            if method == "read":
+                result = logic_gpio_instance.read(address)
+                await nc.publish(msg.reply, str(result).encode())
+        #---Verbose
+        print(f"{hardware} | {protocol} | {method} | {address} | {value} | {result}")
+    await nc.subscribe(f"{hardware}.in", cb=handler)
 
     #--------------------------Run
     try:
