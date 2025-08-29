@@ -72,13 +72,14 @@ class logic_gpio:
         for item in items:
             port_mode = item.get("mode")
             pin = item.get("pin") 
+            name = item.get("name")
             if port_mode == mode:
                 if mode == "in" :
                     self.gpio.setup(pin, self.gpio.IN, pull_up_down=self.gpio.PUD_DOWN)
                 if mode == "out" : 
                     self.gpio.setup(pin, self.gpio.OUT)
                     self.write(pin, 0)
-                print(f"{self.name} : load : {pin} : {port_mode}")
+                print(f"{self.name} : load : {name} : {pin} : {port_mode}")
         #--------------Output
         return result
 

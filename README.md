@@ -103,7 +103,7 @@ pip install -r requirements.txt
 ## Example
 Write value to GPIO port
 ```bash
-nats pub d1.gpio.write.gpio-11.1 ""
+nats pub d1.gpio.out.write.gpio-11 "1"
 ```
 Read value from GPIO port
 ```bash
